@@ -1,5 +1,5 @@
 # Wolf Command - Serious Taming #
-## Latest: 1.6 ##
+## Latest: 1.9 ##
 
 This plugin allows users to command their wolves better than basic Minecraft. It gives players the ability to tell all their wolves to sit/stand as well as attack monsters at range by swinging a stick at them. 
 When left-click with a stick at a monster within 40 blocks, your wolves will target the selected mob and start attacking. Right clicking will cancel the targeting.   
@@ -14,10 +14,10 @@ Beginning from version 1.4, WolfCommand is using the native setTarget() for sett
 - Long range attacking
 
 ### To Do ###
-- Add configuration file to allow/disallow all options of this plugin
-- Disable damaging wolves with trigger stick
-- Change default wolf collar color w/ dye
+- Add permissions to all aspects of this plugin
+- Mass change wolf collar color (option for sitting / standing / all)
 - Command to untame wolves
+- Disable damaging wolves with trigger stick
 
 ### Commands ###
 - **/wolf stand**: Sets wolves to standing
