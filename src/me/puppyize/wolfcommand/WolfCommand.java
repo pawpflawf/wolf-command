@@ -41,10 +41,18 @@ public final class WolfCommand extends JavaPlugin implements Listener {
 				WolfPlayer wp = new WolfPlayer((Player) sender);
 				switch (args[0].toLowerCase()) {
 					case "sit":
-						wp.sitWolves();
+						if(sender.hasPermission("wolf.sitstand")){
+							wp.sitWolves();
+						} else {
+							sender.sendMessage("You need permission to use this command.");
+						}
 						return true;
 					case "stand":
-						wp.standWolves();
+						if(sender.hasPermission("wolf.sitstand")){
+							wp.standWolves();
+						} else {
+							sender.sendMessage("You need permission to use this command.");
+						}
 						return true;
 				}
 			} else {

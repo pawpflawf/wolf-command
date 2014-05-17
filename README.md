@@ -1,5 +1,5 @@
 # Wolf Command - Serious Taming #
-## Latest: 1.9 ##
+## Latest: 1.10 ##
 
 This plugin allows users to command their wolves better than basic Minecraft. It gives players the ability to tell all their wolves to sit/stand as well as attack monsters at range by swinging a stick at them. 
 When left-click with a stick at a monster within 40 blocks, your wolves will target the selected mob and start attacking. Right clicking will cancel the targeting.   
@@ -10,15 +10,21 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - Full stand / sit control over your tamed wolves
 - Long range attacking
 
-### To Do ###
-- Add permissions to all aspects of this plugin
-- Mass change wolf collar color (option for sitting / standing / all)
-- Command to untame wolves
+### Feature To Do ###
 - Disable damaging wolves with trigger stick
+- Mass change wolf collar color (option for sitting / standing / all)
+- Implement 'middle-man' transport to extend target range from default 16 to preferred 40
+- Command to untame wolves
+
+### Integration To Do ###
+- Factions: auto-attacks enemy factions in range
 
 ### Commands ###
 - **/wolf stand**: Sets wolves to standing
 - **/wolf sit**: Sets wolves to sitting
+
+### Permissions ###
+- **wolf.sitstand**: Allows player to set wolves to sitting / standing
 
 ### Long Range Attacking ###
 - Left clicking a mob within 40 blocks, with a stick, will set that mob as the active target for all standing tamed wolves!
