@@ -4,6 +4,9 @@
 This plugin allows users to command their wolves better than basic Minecraft. It gives players the ability to tell all their wolves to sit/stand as well as attack monsters at range by swinging a stick at them. 
 When left-click with a stick at a monster within 40 blocks, your wolves will target the selected mob and start attacking. Right clicking will cancel the targeting.   
 
+*Due to the nature and future of Bukkit, future __WolfCommand__ releases will be ported to [Sponge](https://spongepowered.org/)*.  
+*Should the legalities with Bukkit change, we'll open a split branch to continue Bukkit development*
+
 -----  
 
 ### Features ###
