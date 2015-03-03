@@ -14,6 +14,7 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - Long range attacking
 
 ### Feature To Do ###
+- Improve permissions (re-map naming structure)
 - Disable damaging wolves with trigger stick
 - Mass change wolf collar color (option for sitting / standing / all)
 - Implement 'middle-man' transport to extend target range from default 16 to preferred 40
@@ -27,7 +28,11 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - **/wolf sit**: Sets wolves to sitting
 
 ### Permissions ###
-- **wolf.sitstand**: Allows player to set wolves to sitting / standing
+- **wolf.state.sit**: Allows player to set wolves to sitting
+- **wolf.state.stand**: Allows player to set wolves to standing
+- **wolf.attack.send**: Allows player to send standing wolves to attack a ranged mob
+- **wolf.attack.cancel**: Allows player to set cancel ranged wolf attack
+- **wolf.attack.cancel.teleport**: Forces standing wolves to teleport back to the player upon cancelled range attack
 
 ### Long Range Attacking ###
 - Left clicking a mob within 40 blocks, with a stick, will set that mob as the active target for all standing tamed wolves!

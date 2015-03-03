@@ -41,17 +41,17 @@ public final class WolfCommand extends JavaPlugin implements Listener {
 				WolfPlayer wp = new WolfPlayer((Player) sender);
 				switch (args[0].toLowerCase()) {
 					case "sit":
-						if(sender.hasPermission("wolf.sitstand")){
+						if(sender.hasPermission("wolf.state.sit")){
 							wp.sitWolves();
 						} else {
-							sender.sendMessage("You need permission to use this command.");
+							sender.sendMessage("You need permission to set tamed wolves to sitting.");
 						}
 						return true;
 					case "stand":
-						if(sender.hasPermission("wolf.sitstand")){
+						if(sender.hasPermission("wolf.state.stand")){
 							wp.standWolves();
 						} else {
-							sender.sendMessage("You need permission to use this command.");
+							sender.sendMessage("You need permission to set tamed wolves to standing.");
 						}
 						return true;
 				}
@@ -72,10 +72,24 @@ public final class WolfCommand extends JavaPlugin implements Listener {
 			
 			WolfPlayer wp = new WolfPlayer(p); // Decorate Player object
 			
-			if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {
-				target = wp.getTarget();
+			if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {  //TODO Verify that p.hasPermission works before committing to REPO
+				if(p.hasPermission("wolf.attack.send")){
+					target = wp.getTarget();
+				} else {
+					p.sendMessage("You need permission to use ranged attack.");
+				}
 			} else if (!(a == Action.RIGHT_CLICK_AIR  || a == Action.RIGHT_CLICK_BLOCK)) {
-				return;
+				if(p.hasPermission("wolf.attack.cancel")){
+					if(p.hasPermission("wolf.attack.cancel.teleport")){
+						wp.returnToPlayer();
+					} else {
+						wp.sitWolves(); //TODO Determine if necessary to force permission for teleport back
+					}
+					
+					return;
+				} else {
+					p.sendMessage("You need permission to cancel ranged attack.");
+				}
 			}
 			
 			wp.setTarget(target);

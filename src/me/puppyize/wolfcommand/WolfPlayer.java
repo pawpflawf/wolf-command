@@ -65,6 +65,21 @@ public class WolfPlayer {
 	}
 	
 	/**
+	 * Teleports standing wolves to Player
+	 * @return 
+	 */
+	public int returnToPlayer() {
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (!w.isSitting()) {
+				w.teleport(this.player.getLocation());
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
 	 * Gets player's tamed wolves
 	 * @return
 	 */
