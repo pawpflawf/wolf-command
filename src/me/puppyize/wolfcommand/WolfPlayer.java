@@ -65,6 +65,30 @@ public class WolfPlayer {
 	}
 	
 	/**
+	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
+	 * @return
+	 */
+	public void untameWolves(int number) {
+		int numWolves =this.getWolves().size();
+		
+		if(number >= 0){
+			numWolves = number;
+		} else {
+			numWolves = numWolves + number; // Add number since negative already
+		}
+		
+		for (Wolf w : this.getWolves()) {
+			if(numWolves < 1) break;
+			if (w.isTamed()) {
+				w.setSitting(false); // Make stand before untaming to prevent AI breaking
+				w.setTamed(false);
+				numWolves--;
+			}
+		}
+		return;
+	}
+	
+	/**
 	 * Teleports standing wolves to Player
 	 * @return 
 	 */

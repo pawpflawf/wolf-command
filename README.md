@@ -14,9 +14,9 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - Long range attacking
 
 ### Feature To Do ###
-- Improve permissions (re-map naming structure)
 - Disable damaging wolves with trigger stick
-- Mass change wolf collar color (option for sitting / standing / all)
+- Mass change wolf collar color (option for sitting / standing / all / set number)
+- Set sitting / standing off collar color
 - Implement 'middle-man' transport to extend target range from default 16 to preferred 40
 - Command to untame wolves
 
@@ -26,10 +26,12 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 ### Commands ###
 - **/wolf stand**: Sets wolves to standing
 - **/wolf sit**: Sets wolves to sitting
+- **/wolf untame [number]**: Untames wolves (negative numbers untame all but specified number)
 
 ### Permissions ###
 - **wolf.state.sit**: Allows player to set wolves to sitting
 - **wolf.state.stand**: Allows player to set wolves to standing
+- **wolf.state.tame**: Allows player to bulk untame wolves
 - **wolf.attack.send**: Allows player to send standing wolves to attack a ranged mob
 - **wolf.attack.cancel**: Allows player to set cancel ranged wolf attack
 - **wolf.attack.cancel.teleport**: Forces standing wolves to teleport back to the player upon cancelled range attack
@@ -41,7 +43,6 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 ### External Links ###
 - [Bukkit Project](http://dev.bukkit.org/bukkit-plugins/wolfcommand/ 'Bukkit Project Page')
 - [GitHub Repo](https://github.com/puppyize/WolfCommand 'GitHub Repository')
-- [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VBMY8UXSFDX5E 'Fund the Plugin')
 
 -----
 

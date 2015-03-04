@@ -35,7 +35,7 @@ public final class WolfCommand extends JavaPlugin implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 		if (cmd.getName().equalsIgnoreCase("wolf")) {
-			if (args.length != 1)
+			if (args.length < 1)
 				return false;
 			if (sender instanceof Player) {
 				WolfPlayer wp = new WolfPlayer((Player) sender);
@@ -52,6 +52,17 @@ public final class WolfCommand extends JavaPlugin implements Listener {
 							wp.standWolves();
 						} else {
 							sender.sendMessage("You need permission to set tamed wolves to standing.");
+						}
+						return true;
+					case "untame":
+						if(sender.hasPermission("wolf.state.tame")){
+							if(args.length > 1){
+								wp.untameWolves(Integer.valueOf(args[1]));
+							} else {
+								wp.untameWolves(wp.getWolves().size());
+							}
+						} else {
+							sender.sendMessage("You need permission to untame wolves.");
 						}
 						return true;
 				}
