@@ -1,12 +1,8 @@
 package me.puppyize.wolfcommand;
 
-import org.bukkit.Material;
 import org.bukkit.command.*;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -14,18 +10,13 @@ import org.bukkit.plugin.java.JavaPlugin;
  * This Minecraft plugin allows a player advanced control over their tamed
  * wolves.
  * </p>
- * <p>
- * Typing in "/wolf sit" will force all personally tamed wolves to sit;
- * "/wolf stand" to stand.</br>While holding a stick, left clicking on a mob or
- * player will force all tamed wolves to attack. right clicking will cancel the attack.
- * </p>
  * 
  * @author Puppy Firelyte <mc@puppyize.me>
  */
-public final class WolfCommand extends JavaPlugin implements Listener {
+public final class WolfCommand extends JavaPlugin{
 	
 	public void onEnable() {
-		getServer().getPluginManager().registerEvents(this, this);
+		getServer().getPluginManager().registerEvents(new WolfListener(), this);
 	}
 
 	public void onDisable() {
@@ -73,37 +64,5 @@ public final class WolfCommand extends JavaPlugin implements Listener {
 
 		return false;
 	}
-
-	@EventHandler
-	public void attackDistantCreature(PlayerInteractEvent e) {
-		Player p = e.getPlayer();
-		if (p.getItemInHand().getType() == Material.STICK) {
-			LivingEntity target = null;
-			Action a = e.getAction();
-			
-			WolfPlayer wp = new WolfPlayer(p); // Decorate Player object
-			
-			if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {  //TODO Verify that p.hasPermission works before committing to REPO
-				if(p.hasPermission("wolf.attack.send")){
-					target = wp.getTarget();
-				} else {
-					p.sendMessage("You need permission to use ranged attack.");
-				}
-			} else if (!(a == Action.RIGHT_CLICK_AIR  || a == Action.RIGHT_CLICK_BLOCK)) {
-				if(p.hasPermission("wolf.attack.cancel")){
-					if(p.hasPermission("wolf.attack.cancel.teleport")){
-						wp.returnToPlayer();
-					} else {
-						wp.sitWolves(); //TODO Determine if necessary to force permission for teleport back
-					}
-					
-					return;
-				} else {
-					p.sendMessage("You need permission to cancel ranged attack.");
-				}
-			}
-			
-			wp.setTarget(target);
-		}
-	}
+	
 }

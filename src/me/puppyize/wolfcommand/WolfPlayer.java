@@ -80,8 +80,7 @@ public class WolfPlayer {
 		for (Wolf w : this.getWolves()) {
 			if(numWolves < 1) break;
 			if (w.isTamed()) {
-				w.setSitting(false); // Make stand before untaming to prevent AI breaking
-				w.setTamed(false);
+				this.setUntame(w);
 				numWolves--;
 			}
 		}
@@ -130,6 +129,70 @@ public class WolfPlayer {
 				w.setTarget(target);
 			}
 		}
+	}
+	
+	/**
+	 * Untames individual wolves
+	 * @param target 
+	 */
+	public void untameMe(LivingEntity target) {
+		for (Wolf w : this.getWolves()) {
+			if(target.getUniqueId() == w.getUniqueId()){
+				this.setUntame(w);
+			}
+		}
+	}
+	
+	/**
+	 * Stands and untames wolf
+	 * @return
+	 */
+	public void setUntame(Wolf w){
+		w.setSitting(false); // Make stand before untaming to prevent AI breaking
+		w.setTamed(false);
+	}
+	
+	/**
+	 * Gets the closest wolf in player's crosshair
+	 * @return target
+	 */
+	public LivingEntity getWolfTarget() {
+		Location observerPos = this.player.getEyeLocation();
+        Vector3D observerDir = new Vector3D(observerPos.getDirection());
+        Vector3D observerStart = new Vector3D(observerPos);
+        Vector3D observerEnd = observerStart.add(observerDir.multiply(ATTACK_RANGE));
+        Entity targetEntity = null;
+
+        // Loop through nearby entities (may be slow if too many around)
+        for (Entity entity : this.player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
+        	// Skip not living entities
+        	if (!(entity instanceof LivingEntity)) {
+        		continue;
+        	}
+        	
+        	if (!this.player.hasLineOfSight(entity)) {
+        		continue;
+        	}
+
+        	// Skip our own wolves
+        	if (entity instanceof Tameable && entity instanceof Wolf) {
+        		Tameable t = (Tameable) entity;
+        		if (t.isTamed() && t.getOwner() == this.player) {
+        			Vector3D targetPos = new Vector3D(entity.getLocation());
+                    Vector3D minimum = targetPos.add(-0.5, 0, -0.5);
+                    Vector3D maximum = targetPos.add(0.5, 1.67, 0.5);
+
+                    if (entity != this.player && Vector3D.hasIntersection(observerStart, observerEnd, minimum, maximum)) {
+                    	// Get closest living entity on vector
+                        if (targetEntity == null ||
+                        	targetEntity.getLocation().distanceSquared(observerPos) > entity.getLocation().distanceSquared(observerPos)) {
+                            targetEntity = entity;
+                        }
+                    }
+        		}
+        	}
+        }
+        return (LivingEntity) targetEntity;
 	}
 	
 	/**
