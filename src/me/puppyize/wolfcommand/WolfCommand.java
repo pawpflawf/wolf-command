@@ -46,7 +46,7 @@ public final class WolfCommand extends JavaPlugin{
 						}
 						return true;
 					case "untame":
-						if(sender.hasPermission("wolf.state.tame")){
+						if(sender.hasPermission("wolf.untame.command") || sender.hasPermission("wolf.state.untame")){
 							if(args.length > 1){
 								wp.untameWolves(Integer.valueOf(args[1]));
 							} else {
