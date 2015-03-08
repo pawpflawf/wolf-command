@@ -46,7 +46,7 @@
 
 ### External Links ###
 - [Bukkit Project](http://dev.bukkit.org/bukkit-plugins/wolfcommand/ 'Bukkit Project Page')
-- Spigot Project - _coming soon_
+- [Spigot Project](http://www.spigotmc.org/resources/wolfcommand.4717/ 'Spigot Project Page')
 - [GitHub Repo](https://github.com/puppyize/WolfCommand 'GitHub Repository')
 
 -----
