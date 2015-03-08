@@ -16,6 +16,7 @@
 - Set sitting / standing off collar color
 - **Implement 'middle-man' transport to extend target range from default 16 to preferred 40**
 - Give wolves to other players on the server
+- Mass heal tamed wolves (relies on inventory stocked with meat)
 
 ### Integration To Do ###
 - Factions: auto-attacks enemy factions in range
