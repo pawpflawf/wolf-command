@@ -153,7 +153,7 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Gets the closest wolf in player's crosshair
+	 * Gets the closest tamed wolf in player's crosshair
 	 * @return target
 	 */
 	public LivingEntity getWolfTarget() {
@@ -174,7 +174,7 @@ public class WolfPlayer {
         		continue;
         	}
 
-        	// Skip our own wolves
+        	// Select only our own wolves
         	if (entity instanceof Tameable && entity instanceof Wolf) {
         		Tameable t = (Tameable) entity;
         		if (t.isTamed() && t.getOwner() == this.player) {

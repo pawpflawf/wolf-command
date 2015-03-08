@@ -31,11 +31,15 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 ### Permissions ###
 - **wolf.state.sit**: Set wolves to sitting
 - **wolf.state.stand**: Set wolves to standing
-- **wolf.state.untame**: Untame wolves (Equivalent to **wolf.untame.command** & **wolf.untame.manual**)
 - **wolf.untame.command**: Bulk untame wolves by command line
 - **wolf.untame.manual**: Untame wolf with Red Mushroom
 - **wolf.attack.send**: Send standing wolves to attack a ranged mob
 - **wolf.attack.cancel**: Set cancel ranged wolf attack
+
+### Grouped Permissions ###
+- **wolf.grp.sitstand**: Change wolves state (Equivalent to **wolf.state.sit** & **wolf.state.stand**)
+- **wolf.grp.untame**: Untame wolves (Equivalent to **wolf.untame.command** & **wolf.untame.manual**)
+- **wolf.grp.attack**: Send wolves to attack (Equivalent to **wolf.attack.send** & **wolf.attack.cancel**)
 
 ### Long Range Attacking ###
 - Left clicking a mob within 40 blocks, with a stick, will set that mob as the active target for all standing tamed wolves!
