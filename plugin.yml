@@ -1,6 +1,6 @@
 name: WolfCommand
 main: me.puppyize.wolfcommand.WolfCommand
-version: 1.12
+version: 2.0
 
 commands:
   wolf:

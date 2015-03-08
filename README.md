@@ -1,11 +1,7 @@
 # Wolf Command - Serious Taming #
-## Latest: 1.12 ##
+## Latest: 2.0 - Now Using Spigot! ##
 
-This plugin allows users to command their wolves better than basic Minecraft. It gives players the ability to tell all their wolves to sit/stand as well as attack monsters at range by swinging a stick at them. 
-When left-click with a stick at a monster within 40 blocks, your wolves will target the selected mob and start attacking. Right clicking will cancel the targeting.   
-
-*Due to the nature and future of Bukkit, future __WolfCommand__ releases will be ported to [Sponge](https://spongepowered.org/)*.  
-*Should the legalities with Bukkit change, we'll open a split branch to continue Bukkit development*
+**WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to tell their wolves to sit or stand in mass, as well as attack monsters at range by swinging a stick at them. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
 
 -----  
 
@@ -18,7 +14,8 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - Disable damaging wolves with trigger stick
 - Mass change wolf collar color (option for sitting / standing / all / set number)
 - Set sitting / standing off collar color
-- Implement 'middle-man' transport to extend target range from default 16 to preferred 40
+- **Implement 'middle-man' transport to extend target range from default 16 to preferred 40**
+- Give wolves to other players on the server
 
 ### Integration To Do ###
 - Factions: auto-attacks enemy factions in range
@@ -26,7 +23,7 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 ### Commands ###
 - **/wolf stand**: Sets wolves to standing
 - **/wolf sit**: Sets wolves to sitting
-- **/wolf untame [number]**: Untames wolves (negative numbers untame all but specified number)
+- **/wolf untame [number]**: Untames wolves
 
 ### Permissions ###
 - **wolf.state.sit**: Set wolves to sitting
@@ -37,14 +34,21 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - **wolf.attack.send**: Send standing wolves to attack a ranged mob
 - **wolf.attack.cancel**: Set cancel ranged wolf attack
 
+-----
+
 ### Long Range Attacking ###
 - Left clicking a mob within 40 blocks, with a stick, will set that mob as the active target for all standing tamed wolves!
 - Right clicking will cancel active targeting for all wolves
 
+### Safe Untaming ###
+- Feeding a tamed wolf a **Red Mushroom** will safely untame it
+- When using the **untame** command, if you provide a *negative* number, all wolves but that number will be untamed 
+
 ### External Links ###
 - [Bukkit Project](http://dev.bukkit.org/bukkit-plugins/wolfcommand/ 'Bukkit Project Page')
+- Spigot Project - _coming soon_
 - [GitHub Repo](https://github.com/puppyize/WolfCommand 'GitHub Repository')
 
 -----
 
-_**Developer Note**_: I _am_ accepting "Enhancements" for the project. If you have a suggestion to better this plugin, or feel it's missing something, please fill out a ticket with the 'enhancement' tag and I'll see what I can do about it. **PLEASE REPORT ALL BUGS!**
+_**Developer Note**_: I _am_ accepting ideas for the project! If you have a suggestion to better this plugin, or feel it's missing something, please fill out an issue on GitHub and I'll see what I can do about it!  **PLEASE REPORT ALL BUGS!**
