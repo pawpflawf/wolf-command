@@ -1,5 +1,5 @@
 # Wolf Command - Serious Taming #
-## Latest: 1.12 ##
+## Latest: 2.1 ##
 
 This plugin allows users to command their wolves better than basic Minecraft. It gives players the ability to tell all their wolves to sit/stand as well as attack monsters at range by swinging a stick at them. 
 When left-click with a stick at a monster within 40 blocks, your wolves will target the selected mob and start attacking. Right clicking will cancel the targeting.   
@@ -16,7 +16,6 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 
 ### Feature To Do ###
 - Disable damaging wolves with trigger stick
-- Mass change wolf collar color (option for sitting / standing / all / set number)
 - Set sitting / standing off collar color
 - Implement 'middle-man' transport to extend target range from default 16 to preferred 40
 
@@ -27,6 +26,7 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - **/wolf stand**: Sets wolves to standing
 - **/wolf sit**: Sets wolves to sitting
 - **/wolf untame [number]**: Untames wolves (negative numbers untame all but specified number)
+- **/wolf color (color) [sit/stand/number]**: Change collar color
 
 ### Permissions ###
 - **wolf.state.sit**: Set wolves to sitting
@@ -35,15 +35,20 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 - **wolf.untame.manual**: Untame wolf with Red Mushroom
 - **wolf.attack.send**: Send standing wolves to attack a ranged mob
 - **wolf.attack.cancel**: Set cancel ranged wolf attack
+- **wolf.collar.color**: Bulk set collar color
 
 ### Grouped Permissions ###
-- **wolf.grp.sitstand**: Change wolves state (Equivalent to **wolf.state.sit** & **wolf.state.stand**)
-- **wolf.grp.untame**: Untame wolves (Equivalent to **wolf.untame.command** & **wolf.untame.manual**)
-- **wolf.grp.attack**: Send wolves to attack (Equivalent to **wolf.attack.send** & **wolf.attack.cancel**)
+- **wolf.state**: Change wolves state (Equivalent to **wolf.state.sit** & **wolf.state.stand**)
+- **wolf.untame**: Untame wolves (Equivalent to **wolf.untame.command** & **wolf.untame.manual**)
+- **wolf.attack**: Send wolves to attack (Equivalent to **wolf.attack.send** & **wolf.attack.cancel**)
 
 ### Long Range Attacking ###
 - Left clicking a mob within 40 blocks, with a stick, will set that mob as the active target for all standing tamed wolves!
 - Right clicking will cancel active targeting for all wolves
+
+### Bulk Color Collars ###
+- When no *optional specifier* is provided, default is all personally tamed wolves
+- If a number is provided, command will attempt to color *number* **more** wolf collars
 
 ### External Links ###
 - [Bukkit Project](http://dev.bukkit.org/bukkit-plugins/wolfcommand/ 'Bukkit Project Page')

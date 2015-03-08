@@ -3,6 +3,7 @@ package me.puppyize.wolfcommand;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -63,13 +64,89 @@ public class WolfPlayer {
 		}
 		return count;
 	}
+
+	/**
+	 * Tamed wolf collar color router
+	 * @return
+	 */
+	public void colorWolfRouter(String group, DyeColor color) {
+				
+		switch (group) {
+		case "SITTING":
+			colorSitting(color);
+			break;
+		case "STANDING":
+			colorStanding(color);
+			break;
+		default:
+			if(group.startsWith("NUM:")){
+				group = group.substring(4);
+				colorQuantity(color, Integer.valueOf(group));
+			} else {
+				throw new IllegalArgumentException("Not a valid optional specifier");
+			}
+			break;
+		}
+		return;
+	}
+	
+	/**
+	 * Colors player's sitting wolves
+	 * @return
+	 */
+	public int colorSitting(DyeColor c){
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (w.isSitting() & w.getCollarColor() != c) {
+				w.setCollarColor(c);
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * Colors player's standing wolves
+	 * @return
+	 */
+	public int colorStanding(DyeColor c){
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (!w.isSitting() & w.getCollarColor() != c) {
+				w.setCollarColor(c);
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * Colors set number of tamed wolves
+	 * @return
+	 */
+	public void colorQuantity(DyeColor c, int numWolves){
+		
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if(numWolves < 1) break;
+				if(w.getCollarColor() == c) continue;
+				
+				w.setCollarColor(c);
+				numWolves--;
+			}
+		} else {
+			
+		}
+		
+		return;
+	}
 	
 	/**
 	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
 	 * @return
 	 */
 	public void untameWolves(int number) {
-		int numWolves =this.getWolves().size();
+		int numWolves = this.getWolves().size();
 		
 		if(number >= 0){
 			numWolves = number;

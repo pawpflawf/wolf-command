@@ -1,8 +1,17 @@
 name: WolfCommand
+version: 2.1
+description: Serious taming!
+author: PuppyFirelyte
+website: https://github.com/puppyize/WolfCommand
+
 main: me.puppyize.wolfcommand.WolfCommand
-version: 1.12
+database: false
 
 commands:
   wolf:
     description: Commands to control tamed wolves
-    usage: /wolf (sit|stand|untame [number])
+    usage: |
+      /<command> sit 
+      /<command> stand
+      /<command> untame [number]
+      /<command> color <color> [sit|stand|number]

@@ -27,13 +27,13 @@ public final class WolfListener implements Listener {
 			WolfPlayer wp = new WolfPlayer(p); // Decorate Player object
 			
 			if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {
-				if(p.hasPermission("wolf.attack.send")){
+				if(p.hasPermission("wolf.attack.send") || p.hasPermission("wolf.attack")){
 					target = wp.getTarget();
 				} else {
 					p.sendMessage("You need permission to use ranged attack.");
 				}
 			} else if (!(a == Action.RIGHT_CLICK_AIR  || a == Action.RIGHT_CLICK_BLOCK)) {
-				if(p.hasPermission("wolf.attack.cancel")){
+				if(p.hasPermission("wolf.attack.cancel") || p.hasPermission("wolf.attack")){
 					wp.returnToPlayer();
 				
 					return;
@@ -51,7 +51,7 @@ public final class WolfListener implements Listener {
 		Player p = e.getPlayer();
 	
 		if(p.getItemInHand().getType() == Material.RED_MUSHROOM){
-			if(p.hasPermission("wolf.untame.manual") || p.hasPermission("wolf.state.untame")){
+			if(p.hasPermission("wolf.untame.manual") || p.hasPermission("wolf.untame")){
 				WolfPlayer wp = new WolfPlayer(p);
 				wp.untameMe(wp.getWolfTarget());
 			} else {
