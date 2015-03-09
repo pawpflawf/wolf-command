@@ -3,6 +3,7 @@ package me.puppyize.wolfcommand;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -35,7 +36,7 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Commands player's wolves to sit down
+	 * Sets all Player tamed wolves to a standing state
 	 * @return
 	 */
 	public int sitWolves() {
@@ -50,7 +51,41 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Commands player's wolves to stand up
+	 * Sets set number of Player tamed wolves to a standing state
+	 * @return
+	 */
+	public void sitWolves(int numWolves) {
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if (numWolves < 1) break;
+				
+				if (!w.isSitting()) {
+					w.setSitting(true);
+					numWolves--;
+				}
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+	
+	/**
+	 * Sets tamed wolves with a specified collar color to a standing state
+	 * @return
+	 */
+	public int sitWolves(DyeColor c) {
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (!w.isSitting() & (w.getCollarColor() == c)) {
+				w.setSitting(true);
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * Sets all Player tamed wolves to a standing state
 	 * @return
 	 */
 	public int standWolves() {
@@ -65,11 +100,140 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
+	 * Sets set number of Player tamed wolves to a standing state
 	 * @return
 	 */
-	public void untameWolves(int number) {
-		int numWolves =this.getWolves().size();
+	public void standWolves(int numWolves) {
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if (numWolves < 1) break;
+				
+				if (w.isSitting()) {
+					w.setSitting(false);
+					numWolves--;
+				}
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+	
+	/**
+	 * Sets tamed wolves with a specified collar color to a standing state
+	 * @return
+	 */
+	public int standWolves(DyeColor c) {
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (w.isSitting() & (w.getCollarColor() == c)) {
+				w.setSitting(false);
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/**
+	 * Tamed wolf collar color router
+	 * @return
+	 */
+	public void colorWolfRouter(String group, DyeColor color) {
+		switch (group) {
+		case "ALL":
+			colorWolfCollar(color);
+		case "SITTING":
+			colorWolfCollar(color,true);
+			break;
+		case "STANDING":
+			colorWolfCollar(color,false);
+			break;
+		default:
+			if(group.startsWith("NUM:")){
+				group = group.substring(4);
+				colorWolfCollar(color, Integer.valueOf(group));
+			} else {
+				throw new IllegalArgumentException("Not a valid optional specifier");
+			}
+			break;
+		}
+		return;
+	}
+	
+	/**
+	 * Colors all player's tamed wolves collars to specified color
+	 * @param	c	specified DyeColor
+	 * @return	number of changed wolves
+	 */
+	public int colorWolfCollar(DyeColor c){
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (w.getCollarColor() != c) {
+				w.setCollarColor(c);
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * Colors player's tamed sitting or standing wolves to the specified color
+	 * @param	c	specified DyeColor
+	 * @param	isSitting	boolean of WolfState
+	 * @return	number of changed wolves
+	 */
+	public int colorWolfCollar(DyeColor c, boolean isSitting){
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if ((w.isSitting() == isSitting) & (w.getCollarColor() != c)) {
+				w.setCollarColor(c);
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * Color's defined number of player's tamed wolves to the specified color
+	 * @param	c	specified DyeColor
+	 * @param	numWolves	integer describing how many wolves to change
+	 */
+	public void colorWolfCollar(DyeColor c, int numWolves){
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if(numWolves < 1) break;
+				if(w.getCollarColor() == c) continue;
+				
+				w.setCollarColor(c);
+				numWolves--;
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+	
+	/**
+	 * Untames tamed wolves based on state
+	 * @param	number	desired number of wolves
+	 */
+	public int untameWolf(boolean isSitting) {
+		int numWolves = 0;
+		
+		for (Wolf w : this.getWolves()) {
+			if (w.isTamed() && (w.isSitting() == isSitting)) {
+				this.setUntame(w);
+				numWolves++;
+			}
+		}
+		
+		return numWolves;
+	}
+	
+	/**
+	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
+	 * @param	number	desired number of wolves
+	 */
+	public void untameWolf(int number) {
+		int numWolves = this.getWolves().size();
 		
 		if(number >= 0){
 			numWolves = number;
@@ -85,6 +249,45 @@ public class WolfPlayer {
 			}
 		}
 		return;
+	}
+	
+	/**
+	 * Untames tamed wolves based on their collar color
+	 * @param	c	specified DyeColor
+	 */
+	public int untameWolf(DyeColor c){
+		int numWolves = 0; 
+		
+		for (Wolf w : this.getWolves()) {
+			if(w.getCollarColor() == c){
+				this.setUntame(w);
+				numWolves++;
+			}
+		}
+		
+		return numWolves;
+	}
+	
+	
+	/**
+	 * Untames an individual wolf
+	 * @param target wolf entity to untame
+	 */
+	public void untameWolf(LivingEntity target) {
+		for (Wolf w : this.getWolves()) {
+			if(target.getUniqueId() == w.getUniqueId()){
+				this.setUntame(w);
+			}
+		}
+	}
+	
+	/**
+	 * Set tamed wolf to standing then untames them
+	 * @param	w	wolf to untame
+	 */
+	public void setUntame(Wolf w){
+		w.setSitting(false); // Make stand before untaming to prevent AI breaking
+		w.setTamed(false);
 	}
 	
 	/**
@@ -132,28 +335,7 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Untames individual wolves
-	 * @param target 
-	 */
-	public void untameMe(LivingEntity target) {
-		for (Wolf w : this.getWolves()) {
-			if(target.getUniqueId() == w.getUniqueId()){
-				this.setUntame(w);
-			}
-		}
-	}
-	
-	/**
-	 * Stands and untames wolf
-	 * @return
-	 */
-	public void setUntame(Wolf w){
-		w.setSitting(false); // Make stand before untaming to prevent AI breaking
-		w.setTamed(false);
-	}
-	
-	/**
-	 * Gets the closest wolf in player's crosshair
+	 * Gets the closest tamed wolf in player's crosshair
 	 * @return target
 	 */
 	public LivingEntity getWolfTarget() {
@@ -174,7 +356,7 @@ public class WolfPlayer {
         		continue;
         	}
 
-        	// Skip our own wolves
+        	// Select only our own wolves
         	if (entity instanceof Tameable && entity instanceof Wolf) {
         		Tameable t = (Tameable) entity;
         		if (t.isTamed() && t.getOwner() == this.player) {
