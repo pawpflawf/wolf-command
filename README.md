@@ -16,16 +16,15 @@ When left-click with a stick at a monster within 40 blocks, your wolves will tar
 
 ### Feature To Do ###
 - Disable damaging wolves with trigger stick
-- Set sitting / standing off collar color
 - Implement 'middle-man' transport to extend target range from default 16 to preferred 40
 
 ### Integration To Do ###
 - Factions: auto-attacks enemy factions in range
 
 ### Commands ###
-- **/wolf stand**: Sets wolves to standing
-- **/wolf sit**: Sets wolves to sitting
-- **/wolf untame [number]**: Untames wolves (negative numbers untame all but specified number)
+- **/wolf stand [color/number]**: Sets wolves to standing
+- **/wolf sit [color/number]**: Sets wolves to sitting
+- **/wolf untame [color/number]**: Untames wolves (negative numbers untame all but specified number)
 - **/wolf color (color) [sit/stand/number]**: Change collar color
 
 ### Permissions ###

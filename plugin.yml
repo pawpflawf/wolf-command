@@ -11,7 +11,8 @@ commands:
   wolf:
     description: Commands to control tamed wolves
     usage: |
-      /<command> sit 
-      /<command> stand
-      /<command> untame [number]
+      Commands:
+      /<command> sit [color|number]
+      /<command> stand [color|number]
+      /<command> untame [color|number]
       /<command> color <color> [sit|stand|number]

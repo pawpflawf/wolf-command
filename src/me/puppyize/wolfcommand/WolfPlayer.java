@@ -36,7 +36,7 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Commands player's wolves to sit down
+	 * Sets all Player tamed wolves to a standing state
 	 * @return
 	 */
 	public int sitWolves() {
@@ -51,7 +51,41 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Commands player's wolves to stand up
+	 * Sets set number of Player tamed wolves to a standing state
+	 * @return
+	 */
+	public void sitWolves(int numWolves) {
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if (numWolves < 1) break;
+				
+				if (!w.isSitting()) {
+					w.setSitting(true);
+					numWolves--;
+				}
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+	
+	/**
+	 * Sets tamed wolves with a specified collar color to a standing state
+	 * @return
+	 */
+	public int sitWolves(DyeColor c) {
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (!w.isSitting() & (w.getCollarColor() == c)) {
+				w.setSitting(true);
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * Sets all Player tamed wolves to a standing state
 	 * @return
 	 */
 	public int standWolves() {
@@ -64,24 +98,59 @@ public class WolfPlayer {
 		}
 		return count;
 	}
+	
+	/**
+	 * Sets set number of Player tamed wolves to a standing state
+	 * @return
+	 */
+	public void standWolves(int numWolves) {
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if (numWolves < 1) break;
+				
+				if (w.isSitting()) {
+					w.setSitting(false);
+					numWolves--;
+				}
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+	
+	/**
+	 * Sets tamed wolves with a specified collar color to a standing state
+	 * @return
+	 */
+	public int standWolves(DyeColor c) {
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (w.isSitting() & (w.getCollarColor() == c)) {
+				w.setSitting(false);
+				count++;
+			}
+		}
+		return count;
+	}
 
 	/**
 	 * Tamed wolf collar color router
 	 * @return
 	 */
 	public void colorWolfRouter(String group, DyeColor color) {
-				
 		switch (group) {
+		case "ALL":
+			colorWolfCollar(color);
 		case "SITTING":
-			colorSitting(color);
+			colorWolfCollar(color,true);
 			break;
 		case "STANDING":
-			colorStanding(color);
+			colorWolfCollar(color,false);
 			break;
 		default:
 			if(group.startsWith("NUM:")){
 				group = group.substring(4);
-				colorQuantity(color, Integer.valueOf(group));
+				colorWolfCollar(color, Integer.valueOf(group));
 			} else {
 				throw new IllegalArgumentException("Not a valid optional specifier");
 			}
@@ -91,13 +160,14 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Colors player's sitting wolves
-	 * @return
+	 * Colors all player's tamed wolves collars to specified color
+	 * @param	c	specified DyeColor
+	 * @return	number of changed wolves
 	 */
-	public int colorSitting(DyeColor c){
+	public int colorWolfCollar(DyeColor c){
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if (w.isSitting() & w.getCollarColor() != c) {
+			if (w.getCollarColor() != c) {
 				w.setCollarColor(c);
 				count++;
 			}
@@ -106,13 +176,15 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Colors player's standing wolves
-	 * @return
+	 * Colors player's tamed sitting or standing wolves to the specified color
+	 * @param	c	specified DyeColor
+	 * @param	isSitting	boolean of WolfState
+	 * @return	number of changed wolves
 	 */
-	public int colorStanding(DyeColor c){
+	public int colorWolfCollar(DyeColor c, boolean isSitting){
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if (!w.isSitting() & w.getCollarColor() != c) {
+			if ((w.isSitting() == isSitting) & (w.getCollarColor() != c)) {
 				w.setCollarColor(c);
 				count++;
 			}
@@ -121,11 +193,11 @@ public class WolfPlayer {
 	}
 	
 	/**
-	 * Colors set number of tamed wolves
-	 * @return
+	 * Color's defined number of player's tamed wolves to the specified color
+	 * @param	c	specified DyeColor
+	 * @param	numWolves	integer describing how many wolves to change
 	 */
-	public void colorQuantity(DyeColor c, int numWolves){
-		
+	public void colorWolfCollar(DyeColor c, int numWolves){
 		if(numWolves > 0){
 			for (Wolf w : this.getWolves()) {
 				if(numWolves < 1) break;
@@ -135,17 +207,32 @@ public class WolfPlayer {
 				numWolves--;
 			}
 		} else {
-			
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+	
+	/**
+	 * Untames tamed wolves based on state
+	 * @param	number	desired number of wolves
+	 */
+	public int untameWolf(boolean isSitting) {
+		int numWolves = 0;
+		
+		for (Wolf w : this.getWolves()) {
+			if (w.isTamed() && (w.isSitting() == isSitting)) {
+				this.setUntame(w);
+				numWolves++;
+			}
 		}
 		
-		return;
+		return numWolves;
 	}
 	
 	/**
 	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
-	 * @return
+	 * @param	number	desired number of wolves
 	 */
-	public void untameWolves(int number) {
+	public void untameWolf(int number) {
 		int numWolves = this.getWolves().size();
 		
 		if(number >= 0){
@@ -162,6 +249,45 @@ public class WolfPlayer {
 			}
 		}
 		return;
+	}
+	
+	/**
+	 * Untames tamed wolves based on their collar color
+	 * @param	c	specified DyeColor
+	 */
+	public int untameWolf(DyeColor c){
+		int numWolves = 0; 
+		
+		for (Wolf w : this.getWolves()) {
+			if(w.getCollarColor() == c){
+				this.setUntame(w);
+				numWolves++;
+			}
+		}
+		
+		return numWolves;
+	}
+	
+	
+	/**
+	 * Untames an individual wolf
+	 * @param target wolf entity to untame
+	 */
+	public void untameWolf(LivingEntity target) {
+		for (Wolf w : this.getWolves()) {
+			if(target.getUniqueId() == w.getUniqueId()){
+				this.setUntame(w);
+			}
+		}
+	}
+	
+	/**
+	 * Set tamed wolf to standing then untames them
+	 * @param	w	wolf to untame
+	 */
+	public void setUntame(Wolf w){
+		w.setSitting(false); // Make stand before untaming to prevent AI breaking
+		w.setTamed(false);
 	}
 	
 	/**
@@ -206,27 +332,6 @@ public class WolfPlayer {
 				w.setTarget(target);
 			}
 		}
-	}
-	
-	/**
-	 * Untames individual wolves
-	 * @param target 
-	 */
-	public void untameMe(LivingEntity target) {
-		for (Wolf w : this.getWolves()) {
-			if(target.getUniqueId() == w.getUniqueId()){
-				this.setUntame(w);
-			}
-		}
-	}
-	
-	/**
-	 * Stands and untames wolf
-	 * @return
-	 */
-	public void setUntame(Wolf w){
-		w.setSitting(false); // Make stand before untaming to prevent AI breaking
-		w.setTamed(false);
 	}
 	
 	/**

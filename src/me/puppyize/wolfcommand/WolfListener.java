@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public final class WolfListener implements Listener {
 	@EventHandler
-	public void attackDistantCreature(PlayerInteractEvent e) {
+	public void attackDistantCreature(PlayerInteractEvent e) { //FIXME Hard coded limit of 16 blocks, need work around to extend to 40 blocks as per plugin specification
 		Player p = e.getPlayer();
 		if (p.getItemInHand().getType() == Material.STICK) {
 			LivingEntity target = null;
@@ -53,7 +53,7 @@ public final class WolfListener implements Listener {
 		if(p.getItemInHand().getType() == Material.RED_MUSHROOM){
 			if(p.hasPermission("wolf.untame.manual") || p.hasPermission("wolf.untame")){
 				WolfPlayer wp = new WolfPlayer(p);
-				wp.untameMe(wp.getWolfTarget());
+				wp.untameWolf(wp.getWolfTarget());
 			} else {
 				p.sendMessage("You need permission to untame wolves.");
 			}
