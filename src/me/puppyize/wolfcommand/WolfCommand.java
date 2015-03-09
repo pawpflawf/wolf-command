@@ -1,5 +1,7 @@
 package me.puppyize.wolfcommand;
 
+import java.io.IOException;
+
 import org.bukkit.DyeColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -19,6 +21,13 @@ public final class WolfCommand extends JavaPlugin{
 	
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new WolfListener(), this);
+		
+		try {
+	        Metrics metrics = new Metrics(this);
+	        metrics.start();
+	    } catch (IOException e) {
+	        // Failed to submit the stats :-(
+	    }
 	}
 
 	public void onDisable() {
