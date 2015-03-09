@@ -37,13 +37,13 @@ public final class WolfCommand extends JavaPlugin{
 					if (sender.hasPermission("wolf.state.sit") || sender.hasPermission("wolf.state")) {
 						switch (args.length) {
 						case 2:
-							if(Integer.valueOf(args[1]) > 0){
+							try{
 								wp.sitWolves(Integer.valueOf(args[1]));
-							} else {							
+							} catch(Exception e){
 								try{
 									DyeColor color = DyeColor.valueOf(args[1].toUpperCase());
 									wp.sitWolves(color);
-								} catch(IllegalArgumentException e){
+								} catch(IllegalArgumentException iae){
 									this.invalidCollarColor(sender);
 									break;
 								}
@@ -64,13 +64,13 @@ public final class WolfCommand extends JavaPlugin{
 					if (sender.hasPermission("wolf.state.stand") || sender.hasPermission("wolf.state")) {
 						switch (args.length) {
 						case 2:
-							if(Integer.valueOf(args[1]) > 0){
+							try{
 								wp.standWolves(Integer.valueOf(args[1]));
-							} else {							
+							} catch(Exception e){
 								try{
 									DyeColor color = DyeColor.valueOf(args[1].toUpperCase());
 									wp.standWolves(color);
-								} catch(IllegalArgumentException e){
+								} catch(IllegalArgumentException iae){
 									this.invalidCollarColor(sender);
 									break;
 								}
@@ -95,15 +95,17 @@ public final class WolfCommand extends JavaPlugin{
 								wp.untameWolf(true);
 							} else if(args[1].toLowerCase().startsWith("stand")){
 								wp.untameWolf(false);
-							} else if(Integer.valueOf(args[1]) > 0){
-								wp.untameWolf(Integer.valueOf(args[1]));
-							} else {							
-								try{
-									DyeColor color = DyeColor.valueOf(args[1].toUpperCase());
-									wp.untameWolf(color);
-								} catch(IllegalArgumentException e){
-									this.invalidCollarColor(sender);
-									break;
+							} else {
+								try {
+									wp.untameWolf(Integer.valueOf(args[1]));
+								} catch(Exception e) {
+									try{
+										DyeColor color = DyeColor.valueOf(args[1].toUpperCase());
+										wp.untameWolf(color);
+									} catch(IllegalArgumentException iae){
+										this.invalidCollarColor(sender);
+										break;
+									}
 								}
 							}
 							break;
@@ -129,11 +131,17 @@ public final class WolfCommand extends JavaPlugin{
 									opt = "SITTING";
 								} else if(args[2].toLowerCase().startsWith("stand")){
 									opt = "STANDING";
-								} else if(Integer.valueOf(args[2]) > 0){
-									opt = "NUM:" + args[2];
 								} else {
-									sender.sendMessage("Usage: /wolf color (color) [sitting|standing|number]");
-									break;
+									try {
+										if(Integer.valueOf(args[2]) > 0){
+											opt = "NUM:" + args[2];
+										} else {
+											throw new Exception();
+										}
+									} catch(Exception e) {
+										sender.sendMessage("Usage: /wolf color (color) [sitting|standing|number]");
+										break;
+									}
 								}
 							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
 								try{
@@ -145,8 +153,8 @@ public final class WolfCommand extends JavaPlugin{
 							
 								try {
 									wp.colorWolfRouter(opt, color);
-								} catch(IllegalArgumentException e){
-									sender.sendMessage(e.getMessage());
+								} catch(IllegalArgumentException iae){
+									sender.sendMessage(iae.getMessage());
 								}
 							
 								break;
