@@ -1,7 +1,11 @@
 # Wolf Command - Serious Taming #
-## Latest: 2.1 - Now Using Spigot! ##
+## Latest: 2.2 - Now Using Spigot and MCStats! ##
 
 **WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to tell their wolves to sit or stand in mass, as well as attack monsters at range by swinging a stick at them. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
+
+**WolfCommand** now takes advantage of MCStats for plugin statistical purposes. Previous CB releases (earlier than 1.8.3) are available for servers not yet updated, on our GitHub.  
+
+**PLEASE UPDATE YOUR JAR FILE SO OUR STATS CAN BE ACCURATE**
 
 -----  
 
@@ -17,6 +21,7 @@
 - **Implement 'middle-man' transport to extend target range from default 16 to preferred 40**
 - Give wolves to other players on the server
 - Mass heal tamed wolves (relies on inventory stocked with meat)
+- Statistics on currently tamed wolves (# of Adults/Pups | Collar distribution | Other...)
 
 ### Integration To Do ###
 - Factions: auto-attacks enemy factions in range
@@ -58,6 +63,7 @@
 -----
 
 ### External Links ###
+- [MCStats](http://mcstats.org/plugin/WolfCommand 'MCStats Details')
 - [Bukkit Project](http://dev.bukkit.org/bukkit-plugins/wolfcommand/ 'Bukkit Project Page')
 - [Spigot Project](http://www.spigotmc.org/resources/wolfcommand.4717/ 'Spigot Project Page')
 - [GitHub Repo](https://github.com/puppyize/WolfCommand 'GitHub Repository')

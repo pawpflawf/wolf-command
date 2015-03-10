@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public final class WolfListener implements Listener {
 	@EventHandler
-	public void attackDistantCreature(PlayerInteractEvent e) { //FIXME Hard coded limit of 16 blocks, need work around to extend to 40 blocks as per plugin specification
+	public void attackDistantCreature(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if (p.getItemInHand().getType() == Material.STICK) {
 			LivingEntity target = null;
