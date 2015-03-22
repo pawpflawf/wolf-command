@@ -71,3 +71,6 @@
 -----
 
 _**Developer Note**_: I _am_ accepting ideas for the project! If you have a suggestion to better this plugin, or feel it's missing something, please fill out an issue on GitHub and I'll see what I can do about it!  **PLEASE REPORT ALL BUGS!**
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/puppyize/wolfcommand/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
