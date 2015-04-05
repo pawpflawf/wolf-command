@@ -1,5 +1,5 @@
 name: WolfCommand
-version: 2.2
+version: 2.3
 description: Serious taming!
 author: PuppyFirelyte
 website: https://github.com/puppyize/WolfCommand
@@ -16,3 +16,4 @@ commands:
       /<command> stand [color|number]
       /<command> untame [color|number]
       /<command> color <color> [sit|stand|number]
+      /<command> give <PlayerName> [sit|stand|number]

@@ -130,52 +130,100 @@ public final class WolfCommand extends JavaPlugin{
 						sender.sendMessage("You need permission to untame wolves.");
 					}
 					return true;
-				case "color":
-					if (sender.hasPermission("wolf.collar.color")) {
-						String opt = "ALL";
-						DyeColor color;
-						
-						switch (args.length) {
-							case 3:
-								if(args[2].toLowerCase().startsWith("sit")){
-									opt = "SITTING";
-								} else if(args[2].toLowerCase().startsWith("stand")){
-									opt = "STANDING";
-								} else {
-									try {
-										if(Integer.valueOf(args[2]) > 0){
-											opt = "NUM:" + args[2];
-										} else {
-											throw new Exception();
+					case "color":
+						if (sender.hasPermission("wolf.collar.color")) {
+							String opt = "ALL";
+							DyeColor color;
+
+							switch (args.length) {
+								case 3:
+									if(args[2].toLowerCase().startsWith("sit")){
+										opt = "SITTING";
+									} else if(args[2].toLowerCase().startsWith("stand")){
+										opt = "STANDING";
+									} else {
+										try {
+											if(Integer.valueOf(args[2]) > 0){
+												opt = "NUM:" + args[2];
+											} else {
+												throw new Exception();
+											}
+										} catch(Exception e) {
+											sender.sendMessage("Usage: /wolf color <color> [sitting|standing|number]");
+											break;
 										}
-									} catch(Exception e) {
-										sender.sendMessage("Usage: /wolf color (color) [sitting|standing|number]");
+									}
+								case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
+									try{
+										color = DyeColor.valueOf(args[1].toUpperCase());
+									} catch(IllegalArgumentException e){
+										this.invalidCollarColor(sender);
 										break;
 									}
-								}
-							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
-								try{
-									color = DyeColor.valueOf(args[1].toUpperCase());
-								} catch(IllegalArgumentException e){
-									this.invalidCollarColor(sender);
+
+									try {
+										wp.colorWolfRouter(opt, color);
+									} catch(IllegalArgumentException iae){
+										sender.sendMessage(iae.getMessage());
+									}
+
 									break;
-								}
-							
-								try {
-									wp.colorWolfRouter(opt, color);
-								} catch(IllegalArgumentException iae){
-									sender.sendMessage(iae.getMessage());
-								}
-							
-								break;
-							default:
-								sender.sendMessage("Usage: /wolf color <color> [sitting|standing|number]");
-								break;
+								default:
+									sender.sendMessage("Usage: /wolf color <color> [sitting|standing|number]");
+									break;
+							}
+						} else {
+							sender.sendMessage("You need permission to bulk color wolves.");
 						}
-					} else {
-						sender.sendMessage("You need permission to bulk color wolves.");
-					}
-					return true;
+						return true;
+					case "give":
+						if (sender.hasPermission("wolf.command.give")) {
+							String opt = "ALL";
+
+							switch (args.length) {
+								case 3:
+									if(args[2].toLowerCase().startsWith("sit")){
+										opt = "SITTING";
+									} else if(args[2].toLowerCase().startsWith("stand")){
+										opt = "STANDING";
+									} else {
+										try {
+											if(Integer.valueOf(args[2]) > 0){
+												opt = "NUM:" + args[2];
+											} else {
+												throw new Exception();
+											}
+										} catch(Exception e) {
+											sender.sendMessage("Usage: /wolf give <PlayerName> [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players
+											break;
+										}
+									}
+								case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
+									Player giveTo = null;
+
+									for(Player p : this.getServer().getOnlinePlayers()){
+										if(p.getName().equalsIgnoreCase(args[1])){
+											giveTo = p;
+											break;
+										}
+									}
+
+									if(giveTo == null){
+										sender.sendMessage("Invalid Player Name");
+										break;
+									}
+
+									wp.giveWolfRouter(opt, giveTo);
+
+									break;
+								default:
+									sender.sendMessage("Usage: /wolf give <PlayerName> [sitting|standing|number]");
+									break;
+							}
+						} else {
+							sender.sendMessage("You need permission to forfeit your wolves.");
+						}
+						return true;
 				}
 			} else {
 				sender.sendMessage("Sender must be a Player");

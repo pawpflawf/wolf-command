@@ -132,25 +132,25 @@ class WolfPlayer {
 	 */
 	public void colorWolfRouter(String group, DyeColor color) {
 		switch (group) {
-		case "ALL":
-			colorWolfCollar(color);
-		case "SITTING":
-			colorWolfCollar(color,true);
-			break;
-		case "STANDING":
-			colorWolfCollar(color,false);
-			break;
-		default:
-			if(group.startsWith("NUM:")){
-				group = group.substring(4);
-				colorWolfCollar(color, Integer.valueOf(group));
-			} else {
-				throw new IllegalArgumentException("Not a valid optional specifier");
-			}
-			break;
+			case "ALL":
+				colorWolfCollar(color);
+			case "SITTING":
+				colorWolfCollar(color,true);
+				break;
+			case "STANDING":
+				colorWolfCollar(color,false);
+				break;
+			default:
+				if(group.startsWith("NUM:")){
+					group = group.substring(4);
+					colorWolfCollar(color, Integer.valueOf(group));
+				} else {
+					throw new IllegalArgumentException("Not a valid optional specifier");
+				}
+				break;
 		}
 	}
-	
+
 	/**
 	 * Colors all player's tamed wolves collars to specified color
 	 * @param	c	specified DyeColor
@@ -202,7 +202,85 @@ class WolfPlayer {
 			this.player.sendMessage("Number must be greater than 0");
 		}
 	}
-	
+
+	/**
+	 * Forfeit tamed wolf router
+	 */
+	public void giveWolfRouter(String group, Player p) {
+		switch (group) {
+			case "ALL":
+				giveWolf(p);
+			case "SITTING":
+				giveWolf(p, true);
+				break;
+			case "STANDING":
+				giveWolf(p, false);
+				break;
+			default:
+				if(group.startsWith("NUM:")){
+					group = group.substring(4);
+					giveWolf(p, Integer.valueOf(group));
+				} else {
+					throw new IllegalArgumentException("Not a valid optional specifier");
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Gives all tamed wolves to specified Player
+	 * @param	giveTo	specified Player
+	 * @return	number of transfered wolves
+	 */
+	private int giveWolf(Player giveTo){
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			w.setOwner(giveTo);
+			if (w.getOwner() != giveTo) {
+				w.setOwner(giveTo);
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/**
+	 * Gives all tamed wolves to specified Player
+	 * @param	giveTo	specified Player
+	 * @param isSitting boolean of WolfState
+	 * @return	number of transfered wolves
+	 */
+	private int giveWolf(Player giveTo, boolean isSitting){
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if ((w.isSitting() == isSitting) & (w.getOwner() != giveTo)) {
+				w.setOwner(giveTo);
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/**
+	 * Gives all tamed wolves to specified Player
+	 * @param	giveTo	specified Player
+	 * @param numWolves  number of wolves to transfer
+	 */
+	private void giveWolf(Player giveTo, int numWolves){
+		if(numWolves > 0){
+			for (Wolf w : this.getWolves()) {
+				if(numWolves < 1) break;
+				if(w.getOwner() == giveTo) continue;
+
+				w.setOwner(giveTo);
+				numWolves--;
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+
+
 	/**
 	 * Untames tamed wolves based on state
 	 * @param	isSitting	desired state of wolves
