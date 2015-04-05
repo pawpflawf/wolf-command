@@ -1,15 +1,11 @@
 package me.puppyize.wolfcommand;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Tameable;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -19,17 +15,17 @@ import org.bukkit.entity.Wolf;
  * 
  * @author Puppy Firelyte <mc@puppyize.me>
  */
-public class WolfPlayer {
-	final Double ATTACK_RANGE = 40D;
+class WolfPlayer {
+	private final Double ATTACK_RANGE = 40D;
 	
 	/**
 	 * Keeps the current player
 	 */
-	private Player player;
+	private final Player player;
 	
 	/**
 	 * Creates a WolfPlayer to decorate a Player object
-	 * @param player
+	 * @param player current active player
 	 */
 	public WolfPlayer(Player player) {
 		this.player = player;
@@ -37,7 +33,7 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets all Player tamed wolves to a standing state
-	 * @return
+	 * @return number of wolves set to sitting
 	 */
 	public int sitWolves() {
 		int count = 0;
@@ -52,7 +48,6 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
-	 * @return
 	 */
 	public void sitWolves(int numWolves) {
 		if(numWolves > 0){
@@ -71,7 +66,7 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets tamed wolves with a specified collar color to a standing state
-	 * @return
+	 * @return number of wolves set to sitting
 	 */
 	public int sitWolves(DyeColor c) {
 		int count = 0;
@@ -86,7 +81,7 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets all Player tamed wolves to a standing state
-	 * @return
+	 * @return number of wolves set to standing
 	 */
 	public int standWolves() {
 		int count = 0;
@@ -101,7 +96,6 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
-	 * @return
 	 */
 	public void standWolves(int numWolves) {
 		if(numWolves > 0){
@@ -120,7 +114,7 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets tamed wolves with a specified collar color to a standing state
-	 * @return
+	 * @return number of wolves set to standing
 	 */
 	public int standWolves(DyeColor c) {
 		int count = 0;
@@ -135,7 +129,6 @@ public class WolfPlayer {
 
 	/**
 	 * Tamed wolf collar color router
-	 * @return
 	 */
 	public void colorWolfRouter(String group, DyeColor color) {
 		switch (group) {
@@ -156,7 +149,6 @@ public class WolfPlayer {
 			}
 			break;
 		}
-		return;
 	}
 	
 	/**
@@ -164,7 +156,7 @@ public class WolfPlayer {
 	 * @param	c	specified DyeColor
 	 * @return	number of changed wolves
 	 */
-	public int colorWolfCollar(DyeColor c){
+	private int colorWolfCollar(DyeColor c){
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (w.getCollarColor() != c) {
@@ -181,7 +173,7 @@ public class WolfPlayer {
 	 * @param	isSitting	boolean of WolfState
 	 * @return	number of changed wolves
 	 */
-	public int colorWolfCollar(DyeColor c, boolean isSitting){
+	private int colorWolfCollar(DyeColor c, boolean isSitting){
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if ((w.isSitting() == isSitting) & (w.getCollarColor() != c)) {
@@ -197,7 +189,7 @@ public class WolfPlayer {
 	 * @param	c	specified DyeColor
 	 * @param	numWolves	integer describing how many wolves to change
 	 */
-	public void colorWolfCollar(DyeColor c, int numWolves){
+	private void colorWolfCollar(DyeColor c, int numWolves){
 		if(numWolves > 0){
 			for (Wolf w : this.getWolves()) {
 				if(numWolves < 1) break;
@@ -213,7 +205,7 @@ public class WolfPlayer {
 	
 	/**
 	 * Untames tamed wolves based on state
-	 * @param	number	desired number of wolves
+	 * @param	isSitting	desired state of wolves
 	 */
 	public int untameWolf(boolean isSitting) {
 		int numWolves = 0;
@@ -248,7 +240,6 @@ public class WolfPlayer {
 				numWolves--;
 			}
 		}
-		return;
 	}
 	
 	/**
@@ -285,14 +276,14 @@ public class WolfPlayer {
 	 * Set tamed wolf to standing then untames them
 	 * @param	w	wolf to untame
 	 */
-	public void setUntame(Wolf w){
+	private void setUntame(Wolf w){
 		w.setSitting(false); // Make stand before untaming to prevent AI breaking
 		w.setTamed(false);
 	}
 	
 	/**
 	 * Teleports standing wolves to Player
-	 * @return 
+	 * @return number of wolves that return to player
 	 */
 	public int returnToPlayer() {
 		int count = 0;
@@ -307,12 +298,12 @@ public class WolfPlayer {
 	
 	/**
 	 * Gets player's tamed wolves
-	 * @return
+	 * @return List of currently tamed wolves
 	 */
 	public List<Wolf> getWolves() {
-		List<Wolf> entities = new ArrayList<Wolf>();
+		List<Wolf> entities = new ArrayList<>();
 		for (Entity e : player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
-			if (e instanceof Wolf && e instanceof Tameable) {
+			if (e instanceof Wolf) {
 				Tameable t = (Tameable) e;
 				if (t.isTamed() && t.getOwner() == this.player) {
 					entities.add((Wolf) e);
@@ -324,7 +315,7 @@ public class WolfPlayer {
 	
 	/**
 	 * Sets player's wolves target
-	 * @param target 
+	 * @param target the LivingEntiry in player crosshair
 	 */
 	public void setTarget(LivingEntity target) {
 		for (Wolf w : this.getWolves()) {

@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * @author Puppy Firelyte <mc@puppyize.me>
  */
 
-public final class WolfListener implements Listener {
+final class WolfListener implements Listener {
 	@EventHandler
 	public void attackDistantCreature(PlayerInteractEvent e) {
 		Player p = e.getPlayer();

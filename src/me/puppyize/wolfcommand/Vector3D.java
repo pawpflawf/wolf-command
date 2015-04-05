@@ -83,7 +83,7 @@ public class Vector3D {
  
     /**
      * Adds the current vector and a given vector together, producing a result vector.
-     * @param other - the other vector.
+     * @param x,y,z - the other vector.
      * @return The new result vector.
      */
     public Vector3D add(double x, double y, double z) {
@@ -103,7 +103,7 @@ public class Vector3D {
  
     /**
      * Substracts the current vector and a given vector together, producing a result vector.
-     * @param other - the other vector.
+     * @param x,y,z - the other vector.
      * @return The new result vector.
      */
     public Vector3D subtract(double x, double y, double z) {
@@ -169,7 +169,7 @@ public class Vector3D {
      * @param p2
      * @param min
      * @param max
-     * @source http://www.gamedev.net/topic/338987-aabb---line-segment-intersection-test/ 
+     * @source http://www.gamedev.net/topic/338987-aabb---line-segment-intersection-test/
      * @return True if vectors intersect
      */
     public static boolean hasIntersection(Vector3D p1, Vector3D p2, Vector3D min, Vector3D max) {
@@ -191,9 +191,7 @@ public class Vector3D {
 	       return false;
 	   if (Math.abs(d.z * c.x - d.x * c.z) > e.z * ad.x + e.x * ad.z + epsilon)
 	       return false;
-	   if (Math.abs(d.x * c.y - d.y * c.x) > e.x * ad.y + e.y * ad.x + epsilon)
-	       return false;
+        return Math.abs(d.x * c.y - d.y * c.x) <= e.x * ad.y + e.y * ad.x + epsilon;
 
-	   return true;
-    }    
+    }
 }

@@ -1,12 +1,13 @@
 package me.puppyize.wolfcommand;
 
-import java.io.IOException;
-
 import org.bukkit.DyeColor;
-import org.bukkit.command.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 
 /**
@@ -132,7 +133,7 @@ public final class WolfCommand extends JavaPlugin{
 				case "color":
 					if (sender.hasPermission("wolf.collar.color")) {
 						String opt = "ALL";
-						DyeColor color = null;
+						DyeColor color;
 						
 						switch (args.length) {
 							case 3:
@@ -184,11 +185,11 @@ public final class WolfCommand extends JavaPlugin{
 		return false;
 	}
 	
-	public void invalidCollarColor(CommandSender sender){
+	private void invalidCollarColor(CommandSender sender){
 		String legalColor = "";
 		for (DyeColor c : DyeColor.values())
 			legalColor += c.toString() + ", ";
-		legalColor.substring(0, legalColor.length() - 2);
+		legalColor = legalColor.substring(0, legalColor.length() - 2);
 		
 		sender.sendMessage("Not a legal collar color.");
 		sender.sendMessage("Try: "+legalColor);
