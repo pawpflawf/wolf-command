@@ -31,6 +31,7 @@
 - **/wolf untame [color/number]**: Untames wolves
 - **/wolf color (color) [sit/stand/number]**: Change collar color
 - **/wolf give (PlayerName) [sit/stand/number]**: Give wolves to another Player
+- **/wolf heal [sit|stand|number|color]**: Heals wolves with inventory
 
 ### Permissions ###
 - **wolf.state.sit**: Set wolves to sitting
@@ -40,7 +41,9 @@
 - **wolf.attack.send**: Send standing wolves to attack a ranged mob
 - **wolf.attack.cancel**: Set cancel ranged wolf attack
 - **wolf.collar.color**: Bulk set collar color
-- **wolf.command.give**: Give wolves away
+- **wolf.give.command**: Give wolves away
+- **wolf.heal.inventory**: Bulk healing from inventory
+- **wolf.heal.noinventory**: Bulk healing without inventory
 
 ### Grouped Permissions ###
 - **wolf.state**: Change wolves state (Equivalent to **wolf.state.sit** & **wolf.state.stand**)
@@ -60,6 +63,10 @@
 ### Bulk Color Collars ###
 - When no *optional specifier* is provided, default is all personally tamed wolves
 - If a number is provided, command will attempt to color *number* **more** wolf collars
+
+### Give Away Your Wolves ###
+- You can give up your wolves to other players currently on the server
+- Can be used for trade or stategic PvP purposes... the choice is yours
 
 -----
 

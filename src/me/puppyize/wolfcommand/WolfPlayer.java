@@ -16,6 +16,8 @@ import java.util.List;
  * @author Puppy Firelyte <mc@puppyize.me>
  */
 class WolfPlayer {
+	//TODO: Move `Command Routing` functions to separate class(es)
+	//TODO: Add proper Javadocs to all functions
 	private final Double ATTACK_RANGE = 40D;
 	
 	/**
@@ -267,12 +269,103 @@ class WolfPlayer {
 	 * @param numWolves  number of wolves to transfer
 	 */
 	private void giveWolf(Player giveTo, int numWolves){
-		if(numWolves > 0){
+		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
-				if(numWolves < 1) break;
-				if(w.getOwner() == giveTo) continue;
+				if (numWolves < 1) break;
+				if (w.getOwner() == giveTo) continue;
 
 				w.setOwner(giveTo);
+				numWolves--;
+			}
+		} else {
+			this.player.sendMessage("Number must be greater than 0");
+		}
+	}
+
+
+	/**
+	 * Heal tamed wolf router
+	 */
+	public void healWolfRouter(String group, boolean withInventory) {
+		switch (group) {
+			case "ALL":
+				healWolf(withInventory);
+			case "SITTING":
+				healWolf(withInventory, true);
+				break;
+			case "STANDING":
+				healWolf(withInventory, false);
+				break;
+			default:
+				if (group.startsWith("NUM:")) {
+					group = group.substring(4);
+					healWolf(withInventory, Integer.valueOf(group));
+				} else {
+					throw new IllegalArgumentException("Not a valid optional specifier");
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Heals as many wolves as it can with(out) Inventory
+	 *
+	 * @param withInv whether to deduct inventory or not
+	 * @return number of healed wolves
+	 */
+	private int healWolf(boolean withInv) { //TODO: Complete Function
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (w.getHealth() == w.getMaxHealth()) continue;
+
+			if (withInv) {
+
+			}
+
+			w.setHealth(w.getMaxHealth());
+			count++;
+		}
+		return count;
+	}
+
+	/**
+	 * Heals wolves in given state with(out) Inventory
+	 *
+	 * @param isSitting boolean of WolfState
+	 * @param withInv   whether to deduct inventory or not
+	 * @return number of healed wolves
+	 */
+	private int healWolf(boolean withInv, boolean isSitting) { //TODO: Complete Function
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if ((w.isSitting() == isSitting) & (w.getHealth() != w.getMaxHealth())) {
+				if (withInv) {
+
+				}
+
+				w.setHealth(w.getMaxHealth());
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/**
+	 * Heals specified number of wolves with(out) Inventory
+	 *
+	 * @param numWolves number of wolves to heal
+	 * @param withInv   whether to deduct inventory or not
+	 */
+	private void healWolf(boolean withInv, int numWolves) { //TODO: Complete Function
+		if (numWolves > 0) {
+			for (Wolf w : this.getWolves()) {
+				if (numWolves < 1) break;
+				if (w.getHealth() == w.getMaxHealth()) continue;
+				if (withInv) {
+
+				}
+
+				w.setHealth(w.getMaxHealth());
 				numWolves--;
 			}
 		} else {

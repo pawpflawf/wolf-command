@@ -177,7 +177,7 @@ public final class WolfCommand extends JavaPlugin{
 						}
 						return true;
 					case "give":
-						if (sender.hasPermission("wolf.command.give")) {
+						if (sender.hasPermission("wolf.give.command")) {
 							String opt = "ALL";
 
 							switch (args.length) {
@@ -223,6 +223,58 @@ public final class WolfCommand extends JavaPlugin{
 						} else {
 							sender.sendMessage("You need permission to forfeit your wolves.");
 						}
+						return true;
+					case "heal":
+						String opt = "ALL";
+
+						switch (args.length) {
+							case 3:
+								if (args[2].toLowerCase().startsWith("sit")) {
+									opt = "SITTING";
+								} else if (args[2].toLowerCase().startsWith("stand")) {
+									opt = "STANDING";
+								} else {
+									try {
+										if (Integer.valueOf(args[2]) > 0) {
+											opt = "NUM:" + args[2];
+										} else {
+											throw new Exception();
+										}
+									} catch (Exception e) {
+										sender.sendMessage("Usage: /wolf heal [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players
+										break;
+									}
+								}
+							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
+								Player giveTo = null;
+
+								for (Player p : this.getServer().getOnlinePlayers()) {
+									if (p.getName().equalsIgnoreCase(args[1])) {
+										giveTo = p;
+										break;
+									}
+								}
+
+								if (giveTo == null) {
+									sender.sendMessage("Invalid Player Name");
+									break;
+								}
+
+								if (sender.hasPermission("wolf.heal.inventor")) {
+									wp.healWolfRouter(opt, true);
+								} else if (sender.hasPermission("wolf.heal.noinventor")) {
+									wp.healWolfRouter(opt, false);
+								} else {
+									sender.sendMessage("You need permission to mass heal your wolves.");
+								}
+
+
+								break;
+							default:
+								sender.sendMessage("Usage: /wolf heal [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players
+								break;
+						}
+
 						return true;
 				}
 			} else {
