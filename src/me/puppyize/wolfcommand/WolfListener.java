@@ -3,7 +3,8 @@ package me.puppyize.wolfcommand;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -12,8 +13,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * This Minecraft plugin allows a player advanced control over their tamed
  * wolves.
  * </p>
- * 
- * @author Puppy Firelyte <mc@puppyize.me>
+ *
+ * @author Puppy Firelyte <wolfcommand@puppyize.me>
  */
 
 final class WolfListener implements Listener {
