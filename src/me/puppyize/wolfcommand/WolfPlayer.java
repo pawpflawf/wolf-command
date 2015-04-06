@@ -297,9 +297,9 @@ class WolfPlayer {
 				healWolf(withInventory, false);
 				break;
 			default:
-				if (group.startsWith("NUM:")) {
-					group = group.substring(4);
-					healWolf(withInventory, Integer.valueOf(group));
+				if (group.startsWith("COLOR:")) {
+					group = group.substring(6);
+					healWolf(withInventory, DyeColor.valueOf(group));
 				} else {
 					throw new IllegalArgumentException("Not a valid optional specifier");
 				}
@@ -353,24 +353,24 @@ class WolfPlayer {
 	/**
 	 * Heals specified number of wolves with(out) Inventory
 	 *
-	 * @param numWolves number of wolves to heal
+	 * @param color color of wolf collar to heal
 	 * @param withInv   whether to deduct inventory or not
+	 * @return number of healed wolves
 	 */
-	private void healWolf(boolean withInv, int numWolves) { //TODO: Complete Function
-		if (numWolves > 0) {
-			for (Wolf w : this.getWolves()) {
-				if (numWolves < 1) break;
-				if (w.getHealth() == w.getMaxHealth()) continue;
-				if (withInv) {
+	private int healWolf(boolean withInv, DyeColor color) { //TODO: Complete Function
+		int count = 0;
+		for (Wolf w : this.getWolves()) {
+			if (w.getCollarColor() == color) continue;
+			if (w.getHealth() == w.getMaxHealth()) continue;
 
-				}
+			if (withInv) {
 
-				w.setHealth(w.getMaxHealth());
-				numWolves--;
 			}
-		} else {
-			this.player.sendMessage("Number must be greater than 0");
+
+			w.setHealth(w.getMaxHealth());
+			count++;
 		}
+		return count;
 	}
 
 

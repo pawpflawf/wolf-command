@@ -15,11 +15,11 @@
 - Safely untame your unwanted wolves
 - Bulk color your wolves collars with ease
 - Take complete control with color-coordinated collars
+- Mass heal your tamed wolves (inventory use is permission based)
 
 ### Feature To Do ###
 - Disable damaging wolves with trigger stick
 - **Implement 'middle-man' transport to extend target range from default 16 to preferred 40**
-- Mass heal tamed wolves (relies on inventory stocked with meat)
 - Statistics on currently tamed wolves (# of Adults/Pups | Collar distribution | Other...)
 
 ### Integration To Do ###
@@ -31,7 +31,7 @@
 - **/wolf untame [color/number]**: Untames wolves
 - **/wolf color (color) [sit/stand/number]**: Change collar color
 - **/wolf give (PlayerName) [sit/stand/number]**: Give wolves to another Player
-- **/wolf heal [sit|stand|number|color]**: Heals wolves with inventory
+- **/wolf heal [sit/stand/color]**: Heals wolves with inventory
 
 ### Permissions ###
 - **wolf.state.sit**: Set wolves to sitting
@@ -63,10 +63,19 @@
 ### Bulk Color Collars ###
 - When no *optional specifier* is provided, default is all personally tamed wolves
 - If a number is provided, command will attempt to color *number* **more** wolf collars
+- Supports bulk coloring sitting or standing wolves, also
 
 ### Give Away Your Wolves ###
 - You can give up your wolves to other players currently on the server
 - Can be used for trade or stategic PvP purposes... the choice is yours
+- Give off sitting, standing, a specified number
+- Giving based off color coming soon
+
+### Mass Heal ###
+- Heal your wolves from anywhere to ensure their survival
+- Pulls resources from your inventory to feed to your wolves (Permission based)
+- Heal your sitting or standing wolves
+- Healing off collar color coming soon
 
 -----
 

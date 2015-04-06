@@ -235,32 +235,19 @@ public final class WolfCommand extends JavaPlugin{
 									opt = "STANDING";
 								} else {
 									try {
-										if (Integer.valueOf(args[2]) > 0) {
-											opt = "NUM:" + args[2];
+										if (DyeColor.valueOf(args[2].toUpperCase()) != null) {
+											opt = "COLOR:" + args[2].toUpperCase();
 										} else {
-											throw new Exception();
+											this.invalidCollarColor(sender);
 										}
-									} catch (Exception e) {
-										sender.sendMessage("Usage: /wolf heal [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players
+									} catch (IllegalArgumentException iae) {
+										this.invalidCollarColor(sender);
 										break;
 									}
 								}
 							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
-								Player giveTo = null;
 
-								for (Player p : this.getServer().getOnlinePlayers()) {
-									if (p.getName().equalsIgnoreCase(args[1])) {
-										giveTo = p;
-										break;
-									}
-								}
-
-								if (giveTo == null) {
-									sender.sendMessage("Invalid Player Name");
-									break;
-								}
-
-								if (sender.hasPermission("wolf.heal.inventor")) {
+								if (sender.hasPermission("wolf.heal.inventor") && !sender.hasPermission("wolf.heal.noinventor")) {
 									wp.healWolfRouter(opt, true);
 								} else if (sender.hasPermission("wolf.heal.noinventor")) {
 									wp.healWolfRouter(opt, false);
@@ -268,10 +255,9 @@ public final class WolfCommand extends JavaPlugin{
 									sender.sendMessage("You need permission to mass heal your wolves.");
 								}
 
-
 								break;
 							default:
-								sender.sendMessage("Usage: /wolf heal [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players
+								sender.sendMessage("Usage: /wolf heal [sitting|standing|color]");
 								break;
 						}
 
