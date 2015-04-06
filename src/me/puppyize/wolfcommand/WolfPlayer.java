@@ -15,6 +15,7 @@ import java.util.List;
  * 
  * @author Puppy Firelyte <mc@puppyize.me>
  */
+@SuppressWarnings("UnusedReturnValue")
 class WolfPlayer {
 	//TODO: Move `Command Routing` functions to separate class(es)
 	//TODO: Add proper Javadocs to all functions
@@ -232,7 +233,7 @@ class WolfPlayer {
 	/**
 	 * Gives all tamed wolves to specified Player
 	 * @param	giveTo	specified Player
-	 * @return	number of transfered wolves
+	 * @return number of transferred wolves
 	 */
 	private int giveWolf(Player giveTo){
 		int count = 0;
@@ -250,7 +251,7 @@ class WolfPlayer {
 	 * Gives all tamed wolves to specified Player
 	 * @param	giveTo	specified Player
 	 * @param isSitting boolean of WolfState
-	 * @return	number of transfered wolves
+	 * @return number of transferred wolves
 	 */
 	private int giveWolf(Player giveTo, boolean isSitting){
 		int count = 0;
@@ -486,7 +487,7 @@ class WolfPlayer {
 	
 	/**
 	 * Sets player's wolves target
-	 * @param target the LivingEntiry in player crosshair
+	 * @param target the LivingEntity in player crosshair
 	 */
 	public void setTarget(LivingEntity target) {
 		for (Wolf w : this.getWolves()) {

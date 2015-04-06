@@ -21,7 +21,8 @@ package me.puppyize.wolfcommand;
  
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
- 
+
+@SuppressWarnings("ALL")
 public class Vector3D {
     /**
      * Represents the null (0, 0, 0) origin.
