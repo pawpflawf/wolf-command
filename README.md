@@ -16,6 +16,7 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 - Bulk color your wolves collars with ease
 - Take complete control with color-coordinated collars
 - Mass heal your tamed wolves (inventory use is permission based)
+- Send your wolves to others, either strategically or as barter
 
 ### Feature To Do ###
 - Disable damaging wolves with trigger stick
@@ -30,7 +31,7 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 - **/wolf sit [color/number]**: Sets wolves to sitting
 - **/wolf untame [color/number]**: Untames wolves
 - **/wolf color (color) [sit/stand/number]**: Change collar color
-- **/wolf give (PlayerName) [sit/stand/number]**: Give wolves to another Player
+- **/wolf send (PlayerName) [sit/stand/number]**: Give wolves to another Player
 - **/wolf heal [sit/stand/color]**: Heals wolves with inventory
 
 ### Permissions ###
@@ -41,7 +42,7 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 - **wolf.attack.send**: Send standing wolves to attack a ranged mob
 - **wolf.attack.cancel**: Set cancel ranged wolf attack
 - **wolf.collar.color**: Bulk set collar color
-- **wolf.give.command**: Give wolves away
+- **wolf.send.command**: Give wolves away
 - **wolf.heal.inventory**: Bulk healing from inventory
 - **wolf.heal.noinventory**: Bulk healing without inventory
 

@@ -52,7 +52,8 @@ class WolfPlayer {
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
 	 */
-	public void sitWolves(int numWolves) {
+	public int sitWolves(int numWolves) {
+		int count = 0;
 		if(numWolves > 0){
 			for (Wolf w : this.getWolves()) {
 				if (numWolves < 1) break;
@@ -60,11 +61,13 @@ class WolfPlayer {
 				if (!w.isSitting()) {
 					w.setSitting(true);
 					numWolves--;
+					count++;
 				}
 			}
 		} else {
 			this.player.sendMessage("Number must be greater than 0");
 		}
+		return count;
 	}
 	
 	/**
@@ -100,7 +103,8 @@ class WolfPlayer {
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
 	 */
-	public void standWolves(int numWolves) {
+	public int standWolves(int numWolves) {
+		int count = 0;
 		if(numWolves > 0){
 			for (Wolf w : this.getWolves()) {
 				if (numWolves < 1) break;
@@ -108,11 +112,13 @@ class WolfPlayer {
 				if (w.isSitting()) {
 					w.setSitting(false);
 					numWolves--;
+					count++;
 				}
 			}
 		} else {
 			this.player.sendMessage("Number must be greater than 0");
 		}
+		return count;
 	}
 	
 	/**
@@ -133,25 +139,28 @@ class WolfPlayer {
 	/**
 	 * Tamed wolf collar color router
 	 */
-	public void colorWolfRouter(String group, DyeColor color) {
+	public int colorWolfRouter(String group, DyeColor color) {
+		int affected;
 		switch (group) {
 			case "ALL":
-				colorWolfCollar(color);
+				affected = colorWolfCollar(color);
+				break;
 			case "SITTING":
-				colorWolfCollar(color, true);
+				affected = colorWolfCollar(color, true);
 				break;
 			case "STANDING":
-				colorWolfCollar(color, false);
+				affected = colorWolfCollar(color, false);
 				break;
 			default:
 				if(group.startsWith("NUM:")){
 					group = group.substring(4);
-					colorWolfCollar(color, Integer.valueOf(group));
+					affected = colorWolfCollar(color, Integer.valueOf(group));
 				} else {
 					throw new IllegalArgumentException("Not a valid optional specifier");
 				}
 				break;
 		}
+		return affected;
 	}
 
 	/**
@@ -192,7 +201,8 @@ class WolfPlayer {
 	 * @param	c	specified DyeColor
 	 * @param	numWolves	integer describing how many wolves to change
 	 */
-	private void colorWolfCollar(DyeColor c, int numWolves){
+	private int colorWolfCollar(DyeColor c, int numWolves) {
+		int count = 0;
 		if(numWolves > 0){
 			for (Wolf w : this.getWolves()) {
 				if(numWolves < 1) break;
@@ -200,47 +210,51 @@ class WolfPlayer {
 				
 				w.setCollarColor(c);
 				numWolves--;
+				count++;
 			}
 		} else {
 			this.player.sendMessage("Number must be greater than 0");
 		}
+		return count;
 	}
 
 	/**
-	 * Forfeit tamed wolf router
+	 * Send tamed wolf router
 	 */
-	public void giveWolfRouter(String group, Player p) {
+	public int sendWolfRouter(String group, Player p) {
+		int affected;
 		switch (group) {
 			case "ALL":
-				giveWolf(p);
+				affected = sendWolf(p);
+				break;
 			case "SITTING":
-				giveWolf(p, true);
+				affected = sendWolf(p, true);
 				break;
 			case "STANDING":
-				giveWolf(p, false);
+				affected = sendWolf(p, false);
 				break;
 			default:
 				if(group.startsWith("NUM:")){
 					group = group.substring(4);
-					giveWolf(p, Integer.valueOf(group));
+					affected = sendWolf(p, Integer.valueOf(group));
 				} else {
 					throw new IllegalArgumentException("Not a valid optional specifier");
 				}
 				break;
 		}
+		return affected;
 	}
 
 	/**
 	 * Gives all tamed wolves to specified Player
-	 * @param	giveTo	specified Player
+	 * @param    sendTo    specified Player
 	 * @return number of transferred wolves
 	 */
-	private int giveWolf(Player giveTo){
+	private int sendWolf(Player sendTo) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			w.setOwner(giveTo);
-			if (w.getOwner() != giveTo) {
-				w.setOwner(giveTo);
+			if (w.getOwner() != sendTo) {
+				w.setOwner(sendTo);
 				count++;
 			}
 		}
@@ -249,15 +263,15 @@ class WolfPlayer {
 
 	/**
 	 * Gives all tamed wolves to specified Player
-	 * @param	giveTo	specified Player
+	 * @param    sendTo    specified Player
 	 * @param isSitting boolean of WolfState
 	 * @return number of transferred wolves
 	 */
-	private int giveWolf(Player giveTo, boolean isSitting){
+	private int sendWolf(Player sendTo, boolean isSitting) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if ((w.isSitting() == isSitting) & (w.getOwner() != giveTo)) {
-				w.setOwner(giveTo);
+			if ((w.isSitting() == isSitting) & (w.getOwner() != sendTo)) {
+				w.setOwner(sendTo);
 				count++;
 			}
 		}
@@ -266,33 +280,39 @@ class WolfPlayer {
 
 	/**
 	 * Gives all tamed wolves to specified Player
-	 * @param	giveTo	specified Player
+	 * @param    sendTo    specified Player
 	 * @param numWolves  number of wolves to transfer
+	 * @return number of transferred wolves
 	 */
-	private void giveWolf(Player giveTo, int numWolves){
+	private int sendWolf(Player sendTo, int numWolves) {
+		int count = 0;
 		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
 				if (numWolves < 1) break;
-				if (w.getOwner() == giveTo) continue;
+				if (w.getOwner() == sendTo) continue;
 
-				w.setOwner(giveTo);
+				w.setOwner(sendTo);
 				numWolves--;
+				count++;
 			}
 		} else {
 			this.player.sendMessage("Number must be greater than 0");
 		}
+		return count;
 	}
 
 
 	/**
 	 * Heal tamed wolf router
 	 */
-	public void healWolfRouter(String group, boolean withInventory) {
+	public int healWolfRouter(String group, boolean withInventory) {
+		int affected = 0;
 		switch (group) {
 			case "ALL":
-				healWolf(withInventory);
+				affected = healWolf(withInventory);
+				break;
 			case "SITTING":
-				healWolf(withInventory, true);
+				affected = healWolf(withInventory, true);
 				break;
 			case "STANDING":
 				healWolf(withInventory, false);
@@ -306,6 +326,7 @@ class WolfPlayer {
 				}
 				break;
 		}
+		return affected;
 	}
 
 	/**
@@ -396,7 +417,7 @@ class WolfPlayer {
 	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
 	 * @param	number	desired number of wolves
 	 */
-	public void untameWolf(int number) {
+	public int untameWolf(int number) {
 		int numWolves = this.getWolves().size();
 		
 		if(number >= 0){
@@ -404,14 +425,17 @@ class WolfPlayer {
 		} else {
 			numWolves = numWolves + number; // Add number since negative already
 		}
-		
+
+		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if(numWolves < 1) break;
 			if (w.isTamed()) {
 				this.setUntame(w);
 				numWolves--;
+				count++;
 			}
 		}
+		return count;
 	}
 	
 	/**
