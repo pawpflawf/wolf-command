@@ -1,11 +1,11 @@
 # Wolf Command - Serious Taming #
-## Latest: 2.3 - Now Using Spigot and MCStats! ##
+## Latest: 2.4 - Spigot 1.8.3 ##
 
 **WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to tell their wolves to sit or stand in mass, as well as attack monsters at range by swinging a stick at them. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
 
-**WolfCommand** now takes advantage of MCStats for plugin statistical purposes. Previous CB releases (earlier than 1.8.3) are available for servers not yet updated, on our GitHub.  
+**WolfCommand** now takes advantage of MCStats for plugin statistical purposes. Statistical information retrieved from this tool is exclusively used by the developer to understand how the plugin is implemented and used 'in the wild' (a.k.a. production). Easy opt-out instructions are defined below! :D  
 
-**PLEASE UPDATE YOUR JAR FILE SO OUR STATS CAN BE ACCURATE**
+Previous CB releases (earlier than 1.8.3) are available (by request) for servers not yet updated. If you are in need of an earlier version, let me know (<wolfcommand@puppyize.me>) and I'll build one and send it out as soon as I can. :3    
 
 -----  
 
@@ -76,6 +76,28 @@
 - Pulls resources from your inventory to feed to your wolves (Permission based)
 - Heal your sitting or standing wolves
 - Healing off collar color coming soon
+
+-----
+
+### MCStats / Metrics ###
+
+** Disabling Metrics **
+The file ../plugins/Plugin Metrics/config.yml contains an option to opt-out  
+
+The following data is **read** from the server in some way or another  
+
+- File Contents of plugins/Plugin Metrics/config.yml (created if not existent)
+- Players currently online (not max player count)
+- Server version string (the same version string you see in /version)
+- Plugin version of the metrics-supported plugin
+
+The following data is **sent** to http://mcstats.org and can be seen under [http://mcstats.org/plugin/WolfCommand](http://mcstats.org/plugin/WolfCommand 'MCStats Page')
+
+- Metrics revision of the implementing class
+- Server's GUID
+- Players currently online (not max player count)
+- Server version string (the same version string you see in /version)
+- Plugin version of the metrics-supported plugin
 
 -----
 

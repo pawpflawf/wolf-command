@@ -12,8 +12,8 @@ import java.util.List;
  * This Minecraft plugin allows a player advanced control over their tamed
  * wolves.
  * </p>
- * 
- * @author Puppy Firelyte <mc@puppyize.me>
+ *
+ * @author Puppy Firelyte <wolfcommand@puppyize.me>
  */
 @SuppressWarnings("UnusedReturnValue")
 class WolfPlayer {
@@ -138,10 +138,10 @@ class WolfPlayer {
 			case "ALL":
 				colorWolfCollar(color);
 			case "SITTING":
-				colorWolfCollar(color,true);
+				colorWolfCollar(color, true);
 				break;
 			case "STANDING":
-				colorWolfCollar(color,false);
+				colorWolfCollar(color, false);
 				break;
 			default:
 				if(group.startsWith("NUM:")){

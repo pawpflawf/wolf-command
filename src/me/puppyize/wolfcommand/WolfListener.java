@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * This Minecraft plugin allows a player advanced control over their tamed
  * wolves.
  * </p>
- * 
- * @author Puppy Firelyte <mc@puppyize.me>
+ *
+ * @author Puppy Firelyte <wolfcommand@puppyize.me>
  */
 
 final class WolfListener implements Listener {

@@ -15,8 +15,8 @@ import java.io.IOException;
  * This Minecraft plugin allows a player advanced control over their tamed
  * wolves.
  * </p>
- * 
- * @author Puppy Firelyte <mc@puppyize.me>
+ *
+ * @author Puppy Firelyte <wolfcommand@puppyize.me>
  */
 public final class WolfCommand extends JavaPlugin{
 	
