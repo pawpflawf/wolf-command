@@ -1,5 +1,6 @@
 package me.puppyize.wolfcommand;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -56,7 +57,14 @@ final class WolfListener implements Listener {
 				WolfPlayer wp = new WolfPlayer(p);
 				wp.untameWolf(wp.getWolfTarget());
 
-				p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1); //FIXME: Doesn't remove last RedMushroom in hand (Issue #20)
+				if (p.getGameMode() == GameMode.SURVIVAL) { // Only decrease on Survival
+					int newAmount = p.getItemInHand().getAmount() - 1;
+					if (newAmount < 1) {
+						p.setItemInHand(null);
+					} else {
+						p.getItemInHand().setAmount(newAmount);
+					}
+				}
 			} else {
 				p.sendMessage("You need permission to untame wolves.");
 			}
