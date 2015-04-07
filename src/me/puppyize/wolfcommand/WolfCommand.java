@@ -175,7 +175,7 @@ public final class WolfCommand extends JavaPlugin{
 									try {
 										int colored = wp.colorWolfRouter(opt, color);
 										if (colored > 0)
-											sender.sendMessage("Colored " + pluralize(colored) + color.toString().toLowerCase());
+											sender.sendMessage("Colored " + pluralize(colored) + " " + color.toString().toLowerCase());
 									} catch(IllegalArgumentException iae){
 										sender.sendMessage(iae.getMessage());
 									}

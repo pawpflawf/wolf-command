@@ -4,9 +4,12 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
@@ -70,4 +73,33 @@ final class WolfListener implements Listener {
 			}
 		}
 	}
+
+	@EventHandler
+	public void limitWolf(EntityTameEvent e) {
+		// TELL DEV
+		for (Player p : e.getEntity().getServer().getOnlinePlayers()) {
+			if (p.getName().equalsIgnoreCase("PuppyFirelyte")) {
+				p.sendMessage("IN limitWolf() - EntityTameEvent");
+				p.sendMessage("getEntity: " + e.getEntity().getName());
+				p.sendMessage("getOwner: " + e.getOwner().getName());
+				break;
+			}
+		}
+	}
+
+	@EventHandler
+	public void limitWolf(CreatureSpawnEvent e) {
+		// TELL DEV
+		for (Player p : e.getEntity().getServer().getOnlinePlayers()) {
+			if (p.getName().equalsIgnoreCase("PuppyFirelyte") && e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.BREEDING)) {
+				p.sendMessage("IN limitWolf() - CreatureSpawnEvent");
+				p.sendMessage("getEntity: " + e.getEntity().getName());
+				p.sendMessage("getSpawnReason: " + e.getSpawnReason().name());
+				Wolf w = (Wolf) e.getEntity();
+				p.sendMessage("getOwner: " + w.getOwner().getName());
+				break;
+			}
+		}
+	}
+
 }
