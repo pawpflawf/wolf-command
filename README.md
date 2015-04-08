@@ -17,6 +17,7 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 - Take complete control with color-coordinated collars
 - Mass heal your tamed wolves (inventory use is permission based)
 - Send your wolves to others, either strategically or as barter
+- Limit maximum number of wolves players can tame
 
 ### Feature To Do ###
 - Disable damaging wolves with trigger stick
@@ -77,6 +78,12 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 - Pulls resources from your inventory to feed to your wolves (Permission based)
 - Heal your sitting or standing wolves
 - Healing off collar color coming soon
+
+### Wolf Taming Limit ###
+- Stops unfair players who tame more wolves than they should be allowed
+- Setting config.yml `PLAYER_MAX_WOLF` to '-1' removes limit
+- Defaults limit to 100 wolves
+- Ops are exempt from limit
 
 -----
 

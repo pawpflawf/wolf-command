@@ -23,7 +23,7 @@ public final class WolfCommand extends JavaPlugin{
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new WolfListener(), this);
 
-		getConfig().options().header("WolfCommand Configurations").copyDefaults(true);
+		getConfig().options().copyDefaults(true);
 		saveConfig();
 
 		try {
