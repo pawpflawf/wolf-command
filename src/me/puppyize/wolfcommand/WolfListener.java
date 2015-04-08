@@ -79,13 +79,13 @@ final class WolfListener implements Listener {
 	@EventHandler
 	public void limitWolf(EntityTameEvent e) {
 		if (e.getEntity().getName().equalsIgnoreCase("WOLF")) {
-			WolfCommand wc = new WolfCommand();
+			WolfCommand wc = (WolfCommand) e.getEntity().getServer().getPluginManager().getPlugin("WolfCommand");
 			int MaxWolf = wc.getConfig().getInt("PLAYER_MAX_WOLF");
 
 			CommandSender s = (CommandSender) e.getOwner();
 			WolfPlayer p = new WolfPlayer((Player) e.getOwner());
 
-			if (p.getWolves().size() >= MaxWolf) {
+			if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !s.isOp()) {
 				e.setCancelled(true);
 				s.sendMessage("§cYou're not skilled enough to control this many wolves");
 			}
@@ -95,21 +95,14 @@ final class WolfListener implements Listener {
 	@EventHandler
 	public void limitWolf(CreatureSpawnEvent e) {
 		if (e.getEntity().getName().equalsIgnoreCase("WOLF") && e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.BREEDING)) {
-			WolfCommand wc = new WolfCommand();
+			WolfCommand wc = (WolfCommand) e.getEntity().getServer().getPluginManager().getPlugin("WolfCommand");
 			Wolf w = (Wolf) e.getEntity();
 			int MaxWolf = wc.getConfig().getInt("PLAYER_MAX_WOLF");
 
 			CommandSender s = (CommandSender) w.getOwner();
 			WolfPlayer p = new WolfPlayer((Player) w.getOwner());
 
-//			for (Player play : e.getEntity().getServer().getOnlinePlayers()){
-//				if(play.getName().equalsIgnoreCase("PuppyFirelyte")){
-//					play.sendMessage("MaxWolf:"+MaxWolf);
-//					play.sendMessage("CurrentCount:"+p.getWolves().size());
-//				}
-//			}
-
-			if (p.getWolves().size() >= MaxWolf) {
+			if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !s.isOp()) {
 				e.setCancelled(true);
 				s.sendMessage("§cYou're not skilled enough to control this many wolves");
 			}
