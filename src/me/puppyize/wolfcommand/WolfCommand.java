@@ -19,13 +19,16 @@ import java.io.IOException;
  * @author Puppy Firelyte <wolfcommand@puppyize.me>
  */
 public final class WolfCommand extends JavaPlugin{
-	
+
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new WolfListener(), this);
-		
+
+		getConfig().options().header("WolfCommand Configurations").copyDefaults(true);
+		saveConfig();
+
 		try {
-	        Metrics metrics = new Metrics(this);
-	        metrics.start();
+			Metrics metrics = new Metrics(this);
+			metrics.start();
 	    } catch (IOException e) {
 	        // Failed to submit the stats :-(
 	    }
@@ -44,7 +47,7 @@ public final class WolfCommand extends JavaPlugin{
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
-			String[] args) {
+							 String[] args) { //TODO: Break out into separate functions per command (cleaner looking)
 		if (cmd.getName().equalsIgnoreCase("wolf")) {
 			if (args.length < 1)
 				return false;

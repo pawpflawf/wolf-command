@@ -2,6 +2,7 @@ package me.puppyize.wolfcommand;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -28,6 +29,7 @@ final class WolfListener implements Listener {
 		if (p.getItemInHand().getType() == Material.STICK) {
 			LivingEntity target = null;
 			Action a = e.getAction();
+
 
 			WolfPlayer wp = new WolfPlayer(p); // Decorate Player object
 
@@ -76,28 +78,40 @@ final class WolfListener implements Listener {
 
 	@EventHandler
 	public void limitWolf(EntityTameEvent e) {
-		// TELL DEV
-		for (Player p : e.getEntity().getServer().getOnlinePlayers()) {
-			if (p.getName().equalsIgnoreCase("PuppyFirelyte")) {
-				p.sendMessage("IN limitWolf() - EntityTameEvent");
-				p.sendMessage("getEntity: " + e.getEntity().getName());
-				p.sendMessage("getOwner: " + e.getOwner().getName());
-				break;
+		if (e.getEntity().getName().equalsIgnoreCase("WOLF")) {
+			WolfCommand wc = new WolfCommand();
+			int MaxWolf = wc.getConfig().getInt("PLAYER_MAX_WOLF");
+
+			CommandSender s = (CommandSender) e.getOwner();
+			WolfPlayer p = new WolfPlayer((Player) e.getOwner());
+
+			if (p.getWolves().size() >= MaxWolf) {
+				e.setCancelled(true);
+				s.sendMessage("§cYou're not skilled enough to control this many wolves");
 			}
 		}
 	}
 
 	@EventHandler
 	public void limitWolf(CreatureSpawnEvent e) {
-		// TELL DEV
-		for (Player p : e.getEntity().getServer().getOnlinePlayers()) {
-			if (p.getName().equalsIgnoreCase("PuppyFirelyte") && e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.BREEDING)) {
-				p.sendMessage("IN limitWolf() - CreatureSpawnEvent");
-				p.sendMessage("getEntity: " + e.getEntity().getName());
-				p.sendMessage("getSpawnReason: " + e.getSpawnReason().name());
-				Wolf w = (Wolf) e.getEntity();
-				p.sendMessage("getOwner: " + w.getOwner().getName());
-				break;
+		if (e.getEntity().getName().equalsIgnoreCase("WOLF") && e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.BREEDING)) {
+			WolfCommand wc = new WolfCommand();
+			Wolf w = (Wolf) e.getEntity();
+			int MaxWolf = wc.getConfig().getInt("PLAYER_MAX_WOLF");
+
+			CommandSender s = (CommandSender) w.getOwner();
+			WolfPlayer p = new WolfPlayer((Player) w.getOwner());
+
+//			for (Player play : e.getEntity().getServer().getOnlinePlayers()){
+//				if(play.getName().equalsIgnoreCase("PuppyFirelyte")){
+//					play.sendMessage("MaxWolf:"+MaxWolf);
+//					play.sendMessage("CurrentCount:"+p.getWolves().size());
+//				}
+//			}
+
+			if (p.getWolves().size() >= MaxWolf) {
+				e.setCancelled(true);
+				s.sendMessage("§cYou're not skilled enough to control this many wolves");
 			}
 		}
 	}
