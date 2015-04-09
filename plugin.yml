@@ -17,4 +17,3 @@ commands:
       /<command> untame [color|number]
       /<command> color <color> [sit|stand|number]
       /<command> send <PlayerName> [sit|stand|number]
-      /<command> heal [sit|stand|color]
