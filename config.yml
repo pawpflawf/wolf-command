@@ -1,2 +1,2 @@
 # WolfCommand Standard Config
-PLAYER_MAX_WOLF: 100
+PLAYER_MAX_WOLF: -1

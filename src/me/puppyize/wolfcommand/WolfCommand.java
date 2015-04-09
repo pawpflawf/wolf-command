@@ -8,6 +8,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 
 /**
@@ -30,8 +31,8 @@ public final class WolfCommand extends JavaPlugin{
 			Metrics metrics = new Metrics(this);
 			metrics.start();
 	    } catch (IOException e) {
-	        // Failed to submit the stats :-(
-	    }
+			getLogger().log(Level.WARNING, "Metrics failed to load");
+		}
 	}
 
 	public void onDisable() {
@@ -79,6 +80,7 @@ public final class WolfCommand extends JavaPlugin{
 						}
 					} else {
 						sender.sendMessage("You need permission to set tamed wolves to sitting.");
+						getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `sit` permission");
 					}
 					return true;
 				case "stand":
@@ -106,6 +108,7 @@ public final class WolfCommand extends JavaPlugin{
 						}
 					} else {
 						sender.sendMessage("You need permission to set tamed wolves to standing.");
+						getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `stand` permission");
 					}
 					return true;
 				case "untame":
@@ -142,6 +145,7 @@ public final class WolfCommand extends JavaPlugin{
 						}
 					} else {
 						sender.sendMessage("You need permission to untame wolves.");
+						getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `untame` permission");
 					}
 					return true;
 					case "color":
@@ -190,6 +194,7 @@ public final class WolfCommand extends JavaPlugin{
 							}
 						} else {
 							sender.sendMessage("You need permission to bulk color wolves.");
+							getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `color` permission");
 						}
 						return true;
 					case "send":
@@ -243,50 +248,8 @@ public final class WolfCommand extends JavaPlugin{
 							}
 						} else {
 							sender.sendMessage("You need permission to send your wolves to another player.");
+							getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `send` permission");
 						}
-						return true;
-					case "heal":
-						String opt = "ALL";
-
-						switch (args.length) {
-							case 3:
-								if (args[2].toLowerCase().startsWith("sit")) {
-									opt = "SITTING";
-								} else if (args[2].toLowerCase().startsWith("stand")) {
-									opt = "STANDING";
-								} else {
-									try {
-										if (DyeColor.valueOf(args[2].toUpperCase()) != null) {
-											opt = "COLOR:" + args[2].toUpperCase();
-										} else {
-											this.invalidCollarColor(sender);
-										}
-									} catch (IllegalArgumentException iae) {
-										this.invalidCollarColor(sender);
-										break;
-									}
-								}
-							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
-
-								int healed = 0;
-								if (sender.hasPermission("wolf.heal.inventor") && !sender.hasPermission("wolf.heal.noinventor")) {
-									healed = wp.healWolfRouter(opt, true);
-								} else if (sender.hasPermission("wolf.heal.noinventor")) {
-									healed = wp.healWolfRouter(opt, false);
-								} else {
-									sender.sendMessage("You need permission to mass heal your wolves.");
-								}
-
-								if (healed > 0) {
-									sender.sendMessage("Healed " + pluralize(healed));
-								}
-
-								break;
-							default:
-								sender.sendMessage("Usage: /wolf heal [sitting|standing|color]");
-								break;
-						}
-
 						return true;
 				}
 			} else {
