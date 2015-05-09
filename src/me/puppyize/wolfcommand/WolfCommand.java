@@ -238,7 +238,7 @@ public final class WolfCommand extends JavaPlugin{
 									int sent = wp.sendWolfRouter(opt, sendTo);
 									if (sent > 0) {
 										sender.sendMessage("Sent " + pluralize(sent) + " to " + sendTo.getName());
-										sendTo.sendMessage("Received " + pluralize(sent) + " wolf from " + sender.getName());
+										sendTo.sendMessage("Received " + pluralize(sent) + " from " + sender.getName());
 									}
 
 									break;
