@@ -238,7 +238,7 @@ public final class WolfCommand extends JavaPlugin{
 									int sent = wp.sendWolfRouter(opt, sendTo);
 									if (sent > 0) {
 										sender.sendMessage("Sent " + pluralize(sent) + " to " + sendTo.getName());
-										sendTo.sendMessage("Received " + pluralize(sent) + " wolf from " + sender.getName());
+										sendTo.sendMessage("Received " + pluralize(sent) + " wolf " + sender.getName());
 									}
 
 									break;
@@ -250,6 +250,50 @@ public final class WolfCommand extends JavaPlugin{
 							sender.sendMessage("You need permission to send your wolves to another player.");
 							getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `send` permission");
 						}
+						return true;
+					case "heal":
+						String opt = "ALL";
+
+						switch (args.length) {
+							case 3:
+								if (args[2].toLowerCase().startsWith("sit")) {
+									opt = "SITTING";
+								} else if (args[2].toLowerCase().startsWith("stand")) {
+									opt = "STANDING";
+								} else {
+									try {
+										if (DyeColor.valueOf(args[2].toUpperCase()) != null) {
+											opt = "COLOR:" + args[2].toUpperCase();
+										} else {
+											this.invalidCollarColor(sender);
+										}
+									} catch (IllegalArgumentException iae) {
+										this.invalidCollarColor(sender);
+										break;
+									}
+								}
+							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
+
+								int healed = 0;
+								if (sender.hasPermission("wolf.heal.inventor") && !sender.hasPermission("wolf.heal.noinventor")) {
+									healed = wp.healWolfRouter(opt, true);
+								} else if (sender.hasPermission("wolf.heal.noinventor")) {
+									healed = wp.healWolfRouter(opt, false);
+								} else {
+									sender.sendMessage("You need permission to mass heal your wolves.");
+									getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `send` permission");
+								}
+
+								if (healed > 0) {
+									sender.sendMessage("Healed " + pluralize(healed));
+								}
+
+								break;
+							default:
+								sender.sendMessage("Usage: /wolf heal [sitting|standing|color]");
+								break;
+						}
+
 						return true;
 				}
 			} else {
