@@ -1,5 +1,7 @@
 package me.puppyize.wolfcommand;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,7 +21,7 @@ import java.util.logging.Level;
  *
  * @author Puppy Firelyte <wolfcommand@puppyize.me>
  */
-public final class WolfCommand extends JavaPlugin{
+public final class WolfCommand extends JavaPlugin {
 
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new WolfListener(), this);
@@ -79,7 +81,7 @@ public final class WolfCommand extends JavaPlugin{
 							break;
 						}
 					} else {
-						sender.sendMessage("You need permission to set tamed wolves to sitting.");
+						insufficientPermissions(sender);
 						getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `sit` permission");
 					}
 					return true;
@@ -107,7 +109,7 @@ public final class WolfCommand extends JavaPlugin{
 							break;
 						}
 					} else {
-						sender.sendMessage("You need permission to set tamed wolves to standing.");
+						insufficientPermissions(sender);
 						getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `stand` permission");
 					}
 					return true;
@@ -144,7 +146,7 @@ public final class WolfCommand extends JavaPlugin{
 							break;
 						}
 					} else {
-						sender.sendMessage("You need permission to untame wolves.");
+						insufficientPermissions(sender);
 						getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `untame` permission");
 					}
 					return true;
@@ -193,7 +195,7 @@ public final class WolfCommand extends JavaPlugin{
 									break;
 							}
 						} else {
-							sender.sendMessage("You need permission to bulk color wolves.");
+							insufficientPermissions(sender);
 							getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `color` permission");
 						}
 						return true;
@@ -234,11 +236,20 @@ public final class WolfCommand extends JavaPlugin{
 										break;
 									}
 
+									// Check limit
+									int MaxWolf = Bukkit.getPluginManager().getPlugin("WolfCommand").getConfig().getInt("PLAYER_MAX_WOLF");
+									WolfPlayer p = new WolfPlayer(sendTo);
+
+									if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !sendTo.isOp()) {
+										sender.sendMessage(sendTo.getDisplayName() + " is not skilled enough to control this many wolves");
+										break;
+									}
+
 									// Do send
 									int sent = wp.sendWolfRouter(opt, sendTo);
 									if (sent > 0) {
 										sender.sendMessage("Sent " + pluralize(sent) + " to " + sendTo.getName());
-										sendTo.sendMessage("Received " + pluralize(sent) + " wolf " + sender.getName());
+										sendTo.sendMessage("Received " + pluralize(sent) + " from " + sender.getName());
 									}
 
 									break;
@@ -247,7 +258,7 @@ public final class WolfCommand extends JavaPlugin{
 									break;
 							}
 						} else {
-							sender.sendMessage("You need permission to send your wolves to another player.");
+							insufficientPermissions(sender);
 							getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `send` permission");
 						}
 						return true;
@@ -275,12 +286,12 @@ public final class WolfCommand extends JavaPlugin{
 							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
 
 								int healed = 0;
-								if (sender.hasPermission("wolf.heal.inventor") && !sender.hasPermission("wolf.heal.noinventor")) {
+								if (sender.hasPermission("wolf.heal.inventory") && !sender.hasPermission("wolf.heal.noinventory")) {
 									healed = wp.healWolfRouter(opt, true);
-								} else if (sender.hasPermission("wolf.heal.noinventor")) {
+								} else if (sender.hasPermission("wolf.heal.noinventory")) {
 									healed = wp.healWolfRouter(opt, false);
 								} else {
-									sender.sendMessage("You need permission to mass heal your wolves.");
+									insufficientPermissions(sender);
 									getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `send` permission");
 								}
 
@@ -312,5 +323,9 @@ public final class WolfCommand extends JavaPlugin{
 		
 		sender.sendMessage("Not a legal collar color.");
 		sender.sendMessage("Try: "+legalColor);
+	}
+
+	private void insufficientPermissions(CommandSender s) {
+		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action");
 	}
 }

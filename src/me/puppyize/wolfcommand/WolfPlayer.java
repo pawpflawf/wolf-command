@@ -255,6 +255,7 @@ class WolfPlayer {
 		for (Wolf w : this.getWolves()) {
 			if (w.getOwner() != sendTo) {
 				w.setOwner(sendTo);
+				w.setSitting(false);
 				count++;
 			}
 		}
@@ -272,6 +273,7 @@ class WolfPlayer {
 		for (Wolf w : this.getWolves()) {
 			if ((w.isSitting() == isSitting) & (w.getOwner() != sendTo)) {
 				w.setOwner(sendTo);
+				w.setSitting(false);
 				count++;
 			}
 		}
@@ -292,6 +294,7 @@ class WolfPlayer {
 				if (w.getOwner() == sendTo) continue;
 
 				w.setOwner(sendTo);
+				w.setSitting(false);
 				numWolves--;
 				count++;
 			}

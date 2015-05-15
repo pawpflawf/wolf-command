@@ -1,5 +1,6 @@
 package me.puppyize.wolfcommand;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -37,7 +38,7 @@ final class WolfListener implements Listener {
 				if (p.hasPermission("wolf.attack.send") || p.hasPermission("wolf.attack")) {
 					target = wp.getTarget();
 				} else {
-					p.sendMessage("You need permission to use ranged attack.");
+					needPermission(p);
 				}
 			} else if (!(a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK)) {
 				if (p.hasPermission("wolf.attack.cancel") || p.hasPermission("wolf.attack")) {
@@ -45,7 +46,7 @@ final class WolfListener implements Listener {
 
 					return;
 				} else {
-					p.sendMessage("You need permission to cancel ranged attack.");
+					needPermission(p);
 				}
 			}
 
@@ -71,7 +72,7 @@ final class WolfListener implements Listener {
 					}
 				}
 			} else {
-				p.sendMessage("You need permission to untame wolves.");
+				needPermission(p);
 			}
 		}
 	}
@@ -87,7 +88,7 @@ final class WolfListener implements Listener {
 
 			if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !s.isOp()) {
 				e.setCancelled(true);
-				s.sendMessage("§cYou're not skilled enough to control this many wolves");
+				s.sendMessage(ChatColor.RED + "You're not skilled enough to control this many wolves");
 			}
 		}
 	}
@@ -104,9 +105,14 @@ final class WolfListener implements Listener {
 
 			if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !s.isOp()) {
 				e.setCancelled(true);
-				s.sendMessage("§cYou're not skilled enough to control this many wolves");
+				s.sendMessage(ChatColor.RED + "You're not skilled enough to control this many wolves");
 			}
 		}
+	}
+
+
+	private void needPermission(CommandSender s) {
+		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action");
 	}
 
 }
