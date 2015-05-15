@@ -1,11 +1,15 @@
 package me.puppyize.wolfcommand;
 
+import net.minecraft.server.v1_8_R2.ItemFood;
+import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R2.inventory.CraftItemStack;
 import org.bukkit.entity.*;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -332,6 +336,127 @@ class WolfPlayer {
 		return affected;
 	}
 
+	private void sendMessage(String m) {
+		Bukkit.getConsoleSender().sendMessage(m);
+	}
+
+	/**
+	 * Class to sort food quality for `wolf heal`
+	 */
+	protected class Food implements Comparable<Food> {
+		private int quality;
+		private ItemFood mItem;
+		private ItemStack bItem;
+		private int quantity;
+
+		Food(ItemFood mI, ItemStack bI, int quantity, int quality) {
+			this.mItem = mI;
+			this.bItem = bI;
+			this.quantity = quantity;
+			this.quality = quality;
+		}
+
+		public ItemFood getNMSItem() {
+			return this.mItem;
+		}
+
+		public ItemStack getBukkitItem() {
+			return this.bItem;
+		}
+
+		public int getQuality() {
+			return this.quality;
+		}
+
+		public int getQuantity() {
+			return this.quantity;
+		}
+
+		public void decreaseQuantity() {
+			this.quantity--;
+		}
+
+		@Override
+		public int compareTo(final Food o) {
+			return this.quality - o.getQuality();
+		}
+	}
+
+	protected boolean wolfHealed(Wolf w) {
+		double wolfHealth = w.getHealth();
+		double origWolfHealth = wolfHealth;
+		double wolfMaxHealth = w.getMaxHealth();
+		Player p = (Player) w.getOwner();
+
+		ArrayList<Food> f = new ArrayList<>();
+		for (ItemStack i : p.getInventory().getContents()) {
+			if (i != null && i.getType().isEdible()) {
+				net.minecraft.server.v1_8_R2.ItemStack itemStack = CraftItemStack.asNMSCopy(i);
+				ItemFood itemFood = (ItemFood) itemStack.getItem();
+				int quality = itemFood.getNutrition(itemStack);
+
+				f.add(new Food(itemFood, i, i.getAmount(), quality));
+			}
+		}
+
+		Collections.sort(f);
+		Map<ItemStack, Integer> useMe = new HashMap<>();
+		while (wolfHealth < wolfMaxHealth) {
+			sendMessage("wolfHealth: " + wolfHealth);
+			sendMessage("wolfMaxHealth: " + wolfMaxHealth);
+			Food feedFood = null;
+			double healthDiff = wolfMaxHealth - wolfHealth;
+			sendMessage("healthDiff: " + healthDiff);
+			for (Food food : f) {
+				if (food.getQuantity() < 1) continue;
+				feedFood = food;
+				if (food.getQuality() > healthDiff) {
+					break;
+				}
+			}
+			if (feedFood == null) break;
+
+			sendMessage("feedFoodQuality: " + feedFood.getQuality());
+			feedFood.decreaseQuantity();
+			wolfHealth = wolfHealth + feedFood.getQuality();
+			ItemStack feedFoodObj = feedFood.getBukkitItem();
+			sendMessage("feedFood: " + String.valueOf(feedFoodObj));
+
+			if (useMe.containsKey(feedFoodObj)) {
+				int amount = useMe.get(feedFoodObj) + 1;
+				useMe.put(feedFoodObj, amount);
+			} else {
+				useMe.put(feedFoodObj, 1);
+			}
+			sendMessage("useMe: " + useMe.entrySet().toString());
+		}
+
+		if (wolfHealth == origWolfHealth) return false;
+		if (useMe.size() < 1) return false;
+
+		Inventory inv = p.getInventory();
+		for (Map.Entry<ItemStack, Integer> item : useMe.entrySet()) {
+			ItemStack putItemStack = item.getKey();
+			int removeItemAmount = item.getValue();
+
+			while (removeItemAmount > 0) {
+				int location = inv.first(putItemStack);
+				ItemStack it = inv.getItem(location);
+				int itAmount = it.getAmount();
+				if (removeItemAmount >= itAmount) {
+					it = null;
+					removeItemAmount = removeItemAmount - itAmount;
+				} else {
+					itAmount = itAmount - removeItemAmount;
+					it.setAmount(itAmount);
+					removeItemAmount = 0;
+				}
+				inv.setItem(location, it);
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * Heals as many wolves as it can with(out) Inventory
 	 *
@@ -344,11 +469,14 @@ class WolfPlayer {
 			if (w.getHealth() == w.getMaxHealth()) continue;
 
 			if (withInv) {
-
+				if (wolfHealed(w)) {
+					w.setHealth(w.getMaxHealth());
+					count++;
+				}
+			} else {
+				w.setHealth(w.getMaxHealth());
+				count++;
 			}
-
-			w.setHealth(w.getMaxHealth());
-			count++;
 		}
 		return count;
 	}

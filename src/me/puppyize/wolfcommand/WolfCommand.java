@@ -264,9 +264,8 @@ public final class WolfCommand extends JavaPlugin {
 						return true;
 					case "heal":
 						String opt = "ALL";
-
 						switch (args.length) {
-							case 3:
+							case 2:
 								if (args[2].toLowerCase().startsWith("sit")) {
 									opt = "SITTING";
 								} else if (args[2].toLowerCase().startsWith("stand")) {
@@ -283,8 +282,7 @@ public final class WolfCommand extends JavaPlugin {
 										break;
 									}
 								}
-							case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
-
+							case 1: // Don't include break from 'Case 2' to allow flow into 'Case 1'
 								int healed = 0;
 								if (sender.hasPermission("wolf.heal.inventory") && !sender.hasPermission("wolf.heal.noinventory")) {
 									healed = wp.healWolfRouter(opt, true);
