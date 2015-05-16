@@ -463,11 +463,10 @@ class WolfPlayer {
 	 * @param withInv whether to deduct inventory or not
 	 * @return number of healed wolves
 	 */
-	private int healWolf(boolean withInv) { //TODO: Complete Function
+	private int healWolf(boolean withInv) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (w.getHealth() == w.getMaxHealth()) continue;
-
 			if (withInv) {
 				if (wolfHealed(w)) {
 					w.setHealth(w.getMaxHealth());
@@ -488,16 +487,19 @@ class WolfPlayer {
 	 * @param withInv   whether to deduct inventory or not
 	 * @return number of healed wolves
 	 */
-	private int healWolf(boolean withInv, boolean isSitting) { //TODO: Complete Function
+	private int healWolf(boolean withInv, boolean isSitting) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if ((w.isSitting() == isSitting) & (w.getHealth() != w.getMaxHealth())) {
 				if (withInv) {
-
+					if (wolfHealed(w)) {
+						w.setHealth(w.getMaxHealth());
+						count++;
+					}
+				} else {
+					w.setHealth(w.getMaxHealth());
+					count++;
 				}
-
-				w.setHealth(w.getMaxHealth());
-				count++;
 			}
 		}
 		return count;
@@ -510,18 +512,21 @@ class WolfPlayer {
 	 * @param withInv whether to deduct inventory or not
 	 * @return number of healed wolves
 	 */
-	private int healWolf(boolean withInv, DyeColor color) { //TODO: Complete Function
+	private int healWolf(boolean withInv, DyeColor color) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if (w.getCollarColor() == color) continue;
+			if (w.getCollarColor() != color) continue;
 			if (w.getHealth() == w.getMaxHealth()) continue;
 
 			if (withInv) {
-
+				if (wolfHealed(w)) {
+					w.setHealth(w.getMaxHealth());
+					count++;
+				}
+			} else {
+				w.setHealth(w.getMaxHealth());
+				count++;
 			}
-
-			w.setHealth(w.getMaxHealth());
-			count++;
 		}
 		return count;
 	}
