@@ -17,6 +17,7 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 -- [Mass Healing](https://github.com/puppyize/WolfCommand/wiki/Features#mass-healing)
 -- [Safe Untaming](https://github.com/puppyize/WolfCommand/wiki/Features#safe-untaming)
 -- [Give Away Your Wolves](https://github.com/puppyize/WolfCommand/wiki/Features#give-away-your-wolves)
+-- [Check Wolf Statistics](https://github.com/puppyize/WolfCommand/wiki/Features#check-wolf-statistics)
 -- [Capped Wolf Limit](https://github.com/puppyize/WolfCommand/wiki/Features#capped-wolf-limit)
 - [Integrations](https://github.com/puppyize/WolfCommand/wiki/Integrations)  
 ~~~~~~~~~~~~~~~~~

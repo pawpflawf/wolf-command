@@ -1,7 +1,7 @@
 package me.puppyize.wolfcommand;
 
 import net.minecraft.server.v1_8_R2.ItemFood;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R2.inventory.CraftItemStack;
@@ -308,6 +308,66 @@ class WolfPlayer {
 		return count;
 	}
 
+	public void wolfStats(Player sendTo, Player fetchFrom) {
+		Map<String, Integer> AdultPup = new HashMap<>();
+		Map<String, Integer> SitStand = new HashMap<>();
+		Map<String, Integer> ColorArray = new HashMap<>();
+		WolfPlayer wp = new WolfPlayer(fetchFrom);
+		List<Wolf> wps = wp.getWolves();
+
+		sendTo.sendMessage(ChatColor.BLUE + ".: Wolf Stats for " + ChatColor.UNDERLINE + ChatColor.RED + fetchFrom.getDisplayName() + ChatColor.RESET + ChatColor.BLUE + " :.");
+		sendTo.sendMessage(ChatColor.GRAY + "Total tamed wolves: " + ChatColor.DARK_AQUA + wps.size());
+
+		if (wps.size() < 1) return;
+
+		for (Wolf w : wps) {
+			// Adult:Pup
+			if (w.isAdult())
+				if (AdultPup.containsKey("ADULT")) AdultPup.put("ADULT", AdultPup.get("ADULT") + 1);
+				else AdultPup.put("ADULT", 1);
+			else if (AdultPup.containsKey("PUP")) AdultPup.put("PUP", AdultPup.get("PUP") + 1);
+			else AdultPup.put("PUP", 1);
+
+			// Sitting:Standing
+			if (w.isSitting())
+				if (SitStand.containsKey("SITTING")) SitStand.put("SITTING", SitStand.get("SITTING") + 1);
+				else SitStand.put("SITTING", 1);
+			else if (SitStand.containsKey("STANDING")) SitStand.put("STANDING", SitStand.get("STANDING") + 1);
+			else SitStand.put("STANDING", 1);
+
+			// Color Array
+			if (ColorArray.containsKey(w.getCollarColor().name()))
+				ColorArray.put(w.getCollarColor().name(), ColorArray.get(w.getCollarColor().name()) + 1);
+			else ColorArray.put(w.getCollarColor().name(), 1);
+		}
+
+		int TOTAL = wps.size();
+		int ADULT = (AdultPup.containsKey("ADULT") ? AdultPup.get("ADULT") : 0);
+		int PUP = (AdultPup.containsKey("PUP") ? AdultPup.get("PUP") : 0);
+		int SITTING = (SitStand.containsKey("SITTING") ? SitStand.get("SITTING") : 0);
+		int STANDING = (SitStand.containsKey("STANDING") ? SitStand.get("STANDING") : 0);
+
+		StringBuilder AP = new StringBuilder();
+		AP.append(ChatColor.GRAY).append("Adults: ").append(ChatColor.DARK_AQUA).append(ADULT).append(ChatColor.AQUA).append(" (").append(Math.round(ADULT / TOTAL)).append(")");
+		AP.append(ChatColor.BLACK).append(" | ");
+		AP.append(ChatColor.GRAY).append("Pups: ").append(ChatColor.DARK_AQUA).append(PUP).append(ChatColor.AQUA).append(" (").append(Math.round(PUP / TOTAL)).append(")");
+		sendTo.sendMessage(AP.toString());
+
+		StringBuilder SS = new StringBuilder();
+		SS.append(ChatColor.GRAY).append("Sitting: ").append(ChatColor.DARK_AQUA).append(SITTING).append(ChatColor.AQUA).append(" (").append(Math.round(SITTING / TOTAL)).append(")");
+		SS.append(ChatColor.BLACK).append(" | ");
+		SS.append(ChatColor.GRAY).append("Standing: ").append(ChatColor.DARK_AQUA).append(STANDING).append(ChatColor.AQUA).append(" (").append(Math.round(STANDING / TOTAL)).append(")");
+		sendTo.sendMessage(SS.toString());
+
+		StringBuilder COLOR = new StringBuilder();
+		for (Map.Entry<String, Integer> item : ColorArray.entrySet()) {
+			String color = item.getKey();
+			int amount = item.getValue();
+			COLOR.append(ChatColor.GRAY).append(color.toUpperCase()).append(": ").append(ChatColor.DARK_AQUA).append(amount).append(ChatColor.AQUA).append(" (").append(Math.round(amount / TOTAL)).append(")").append(ChatColor.RESET);
+		}
+		sendTo.sendMessage(COLOR.toString());
+
+	}
 
 	/**
 	 * Heal tamed wolf router
@@ -334,10 +394,6 @@ class WolfPlayer {
 				break;
 		}
 		return affected;
-	}
-
-	private void sendMessage(String m) {
-		Bukkit.getConsoleSender().sendMessage(m);
 	}
 
 	/**
@@ -402,11 +458,8 @@ class WolfPlayer {
 		Collections.sort(f);
 		Map<ItemStack, Integer> useMe = new HashMap<>();
 		while (wolfHealth < wolfMaxHealth) {
-			sendMessage("wolfHealth: " + wolfHealth);
-			sendMessage("wolfMaxHealth: " + wolfMaxHealth);
 			Food feedFood = null;
 			double healthDiff = wolfMaxHealth - wolfHealth;
-			sendMessage("healthDiff: " + healthDiff);
 			for (Food food : f) {
 				if (food.getQuantity() < 1) continue;
 				feedFood = food;
@@ -416,11 +469,9 @@ class WolfPlayer {
 			}
 			if (feedFood == null) break;
 
-			sendMessage("feedFoodQuality: " + feedFood.getQuality());
 			feedFood.decreaseQuantity();
 			wolfHealth = wolfHealth + feedFood.getQuality();
 			ItemStack feedFoodObj = feedFood.getBukkitItem();
-			sendMessage("feedFood: " + String.valueOf(feedFoodObj));
 
 			if (useMe.containsKey(feedFoodObj)) {
 				int amount = useMe.get(feedFoodObj) + 1;
@@ -428,7 +479,6 @@ class WolfPlayer {
 			} else {
 				useMe.put(feedFoodObj, 1);
 			}
-			sendMessage("useMe: " + useMe.entrySet().toString());
 		}
 
 		if (wolfHealth == origWolfHealth) return false;
