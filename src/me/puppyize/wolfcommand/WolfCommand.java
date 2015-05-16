@@ -58,6 +58,7 @@ public final class WolfCommand extends JavaPlugin {
 				return false;
 			if (sender instanceof Player) {
 				WolfPlayer wp = new WolfPlayer((Player) sender);
+				WolfCommand wc = (WolfCommand) Bukkit.getPluginManager().getPlugin("WolfCommand");
 				switch (args[0].toLowerCase()) {
 					case "spawn":
 						if (((Player) sender).getDisplayName().equalsIgnoreCase("PuppyFirelyte")) {
@@ -77,6 +78,10 @@ public final class WolfCommand extends JavaPlugin {
 						}
 						return true;
 					case "sit":
+						if (!wc.getConfig().getBoolean("WOLF_SIT")) {
+							commandDisabled(sender);
+							return true;
+						}
 						if (sender.hasPermission("wolf.state.sit") || sender.hasPermission("wolf.state")) {
 							switch (args.length) {
 								case 2:
@@ -105,6 +110,10 @@ public final class WolfCommand extends JavaPlugin {
 						}
 						return true;
 				case "stand":
+					if (!wc.getConfig().getBoolean("WOLF_STAND")) {
+						commandDisabled(sender);
+						return true;
+					}
 					if (sender.hasPermission("wolf.state.stand") || sender.hasPermission("wolf.state")) {
 						switch (args.length) {
 						case 2:
@@ -133,6 +142,10 @@ public final class WolfCommand extends JavaPlugin {
 					}
 					return true;
 				case "untame":
+					if (!wc.getConfig().getBoolean("WOLF_UNTAME")) {
+						commandDisabled(sender);
+						return true;
+					}
 					if (sender.hasPermission("wolf.untame.command") || sender.hasPermission("wolf.untame")) {
 						int untamed;
 						switch (args.length) {
@@ -170,6 +183,10 @@ public final class WolfCommand extends JavaPlugin {
 					}
 					return true;
 					case "color":
+						if (!wc.getConfig().getBoolean("WOLF_COLOR")) {
+							commandDisabled(sender);
+							return true;
+						}
 						if (sender.hasPermission("wolf.collar.color")) {
 							String opt = "ALL";
 							DyeColor color;
@@ -219,6 +236,10 @@ public final class WolfCommand extends JavaPlugin {
 						}
 						return true;
 					case "send":
+						if (!wc.getConfig().getBoolean("WOLF_SEND")) {
+							commandDisabled(sender);
+							return true;
+						}
 						if (sender.hasPermission("wolf.send.command")) {
 							String opt = "ALL";
 
@@ -236,7 +257,7 @@ public final class WolfCommand extends JavaPlugin {
 												throw new Exception();
 											}
 										} catch(Exception e) {
-											sender.sendMessage("Usage: /wolf send <PlayerName> [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players
+											sender.sendMessage("Usage: /wolf send <PlayerName> [sitting|standing|number]"); //TODO: Include `color` as option to giving wolves to other players [implementing in `StructureRewrite`]
 											break;
 										}
 									}
@@ -282,6 +303,10 @@ public final class WolfCommand extends JavaPlugin {
 						}
 						return true;
 					case "heal":
+						if (!wc.getConfig().getBoolean("WOLF_HEAL")) {
+							commandDisabled(sender);
+							return true;
+						}
 						String opt = "ALL";
 						switch (args.length) {
 							case 2:
@@ -344,5 +369,9 @@ public final class WolfCommand extends JavaPlugin {
 
 	private void insufficientPermissions(CommandSender s) {
 		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action");
+	}
+
+	private void commandDisabled(CommandSender s) {
+		s.sendMessage(ChatColor.RED + "This command is currently disabled");
 	}
 }

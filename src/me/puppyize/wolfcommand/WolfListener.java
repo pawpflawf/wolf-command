@@ -1,5 +1,6 @@
 package me.puppyize.wolfcommand;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -80,7 +81,7 @@ final class WolfListener implements Listener {
 	@EventHandler
 	public void limitWolf(EntityTameEvent e) {
 		if (e.getEntity().getName().equalsIgnoreCase("WOLF")) {
-			WolfCommand wc = (WolfCommand) e.getEntity().getServer().getPluginManager().getPlugin("WolfCommand");
+			WolfCommand wc = (WolfCommand) Bukkit.getPluginManager().getPlugin("WolfCommand");
 			int MaxWolf = wc.getConfig().getInt("PLAYER_MAX_WOLF");
 
 			CommandSender s = (CommandSender) e.getOwner();
@@ -96,7 +97,8 @@ final class WolfListener implements Listener {
 	@EventHandler
 	public void limitWolf(CreatureSpawnEvent e) {
 		if (e.getEntity().getName().equalsIgnoreCase("WOLF") && e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.BREEDING)) {
-			WolfCommand wc = (WolfCommand) e.getEntity().getServer().getPluginManager().getPlugin("WolfCommand");
+
+			WolfCommand wc = (WolfCommand) Bukkit.getPluginManager().getPlugin("WolfCommand");
 			Wolf w = (Wolf) e.getEntity();
 			int MaxWolf = wc.getConfig().getInt("PLAYER_MAX_WOLF");
 
