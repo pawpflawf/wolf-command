@@ -262,14 +262,7 @@ public final class WolfCommand extends JavaPlugin {
 										}
 									}
 								case 2: // Don't include break from 'Case 3' to allow flow into 'Case 2'
-									Player sendTo = null;
-
-									for(Player p : this.getServer().getOnlinePlayers()){
-										if(p.getName().equalsIgnoreCase(args[1])){
-											sendTo = p;
-											break;
-										}
-									}
+									Player sendTo = Bukkit.getPlayer(args[1]);
 
 									if (sendTo == null) {
 										sender.sendMessage("Invalid Player Name");
@@ -310,14 +303,14 @@ public final class WolfCommand extends JavaPlugin {
 						String opt = "ALL";
 						switch (args.length) {
 							case 2:
-								if (args[2].toLowerCase().startsWith("sit")) {
+								if (args[1].toLowerCase().startsWith("sit")) {
 									opt = "SITTING";
-								} else if (args[2].toLowerCase().startsWith("stand")) {
+								} else if (args[1].toLowerCase().startsWith("stand")) {
 									opt = "STANDING";
 								} else {
 									try {
-										if (DyeColor.valueOf(args[2].toUpperCase()) != null) {
-											opt = "COLOR:" + args[2].toUpperCase();
+										if (DyeColor.valueOf(args[1].toUpperCase()) != null) {
+											opt = "COLOR:" + args[1].toUpperCase();
 										} else {
 											this.invalidCollarColor(sender);
 										}
@@ -347,6 +340,32 @@ public final class WolfCommand extends JavaPlugin {
 								break;
 						}
 
+						return true;
+					case "stats":
+						if (sender.hasPermission("wolf.stat.self") || sender.hasPermission("wolf.stat.other")) {
+							Player u = (Player) sender;
+							switch (args.length) {
+								case 2:
+									if (!sender.hasPermission("wolf.stat.other")) {
+										insufficientPermissions(sender);
+										break;
+									}
+									u = Bukkit.getPlayer(args[1]);
+									if (u == null) {
+										sender.sendMessage(ChatColor.RED + "Not a valid username");
+										break;
+									}
+								case 1: // Don't include break from 'Case 2' to allow flow into 'Case 1'
+									wp.wolfStats((Player) sender, u);
+									break;
+								default:
+									sender.sendMessage("Usage: /wolf stats [PlayerName]");
+									break;
+							}
+						} else {
+							insufficientPermissions(sender);
+							getLogger().log(Level.INFO, ((Player) sender).getDisplayName() + " doesn't have `stats` permission");
+						}
 						return true;
 				}
 			} else {

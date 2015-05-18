@@ -1,5 +1,5 @@
 name: WolfCommand
-version: 2.7
+version: @VERSION@
 description: Serious taming!
 author: PuppyFirelyte
 website: https://github.com/puppyize/WolfCommand
@@ -18,3 +18,4 @@ commands:
       /<command> color <color> [sit|stand|number]
       /<command> send <PlayerName> [sit|stand|number]
       /<command> heal [sit|stand|color]
+      /<command> stats [PlayerName]

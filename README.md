@@ -1,5 +1,5 @@
 # Wolf Command - Serious Taming #
-## Latest: 2.7 - Spigot 1.8.3 ##
+## Latest: 2.8 - Spigot 1.8.4 ##
 
 **WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to attack monsters at range by swinging a stick at their target and full control over wolf state and various other essential attributes. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
 
@@ -17,6 +17,7 @@ Previous CB releases (earlier than 1.8.3) are available (by request) for servers
 -- [Mass Healing](https://github.com/puppyize/WolfCommand/wiki/Features#mass-healing)
 -- [Safe Untaming](https://github.com/puppyize/WolfCommand/wiki/Features#safe-untaming)
 -- [Give Away Your Wolves](https://github.com/puppyize/WolfCommand/wiki/Features#give-away-your-wolves)
+-- [Check Wolf Statistics](https://github.com/puppyize/WolfCommand/wiki/Features#check-wolf-statistics)
 -- [Capped Wolf Limit](https://github.com/puppyize/WolfCommand/wiki/Features#capped-wolf-limit)
 - [Integrations](https://github.com/puppyize/WolfCommand/wiki/Integrations)  
 ~~~~~~~~~~~~~~~~~
