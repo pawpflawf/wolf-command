@@ -5,8 +5,6 @@
 
 **WolfCommand** now takes advantage of MCStats for plugin statistical purposes. Statistical information retrieved from this tool is exclusively used by the developer to understand how the plugin is implemented and used 'in the wild' (a.k.a. production). Easy opt-out instructions are defined below! :D  
 
-Previous CB releases (earlier than 1.8.3) are available (by request) for servers not yet updated. If you are in need of an earlier version, let me know (<wolfcommand@puppyize.me>) and I'll build one and send it out as soon as I can. :3    
-
 -----  
 
 ### Visit the Wiki for More Detailed Information ###
