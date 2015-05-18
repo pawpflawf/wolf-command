@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -108,6 +109,19 @@ final class WolfListener implements Listener {
 			if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !s.isOp()) {
 				e.setCancelled(true);
 				s.sendMessage(ChatColor.RED + "You're not skilled enough to control this many wolves");
+			}
+		}
+	}
+
+	@EventHandler
+	public void disableStickDamage(EntityDamageByEntityEvent e) {
+		if (e.getEntity() instanceof Wolf && e.getDamager() instanceof Player) {
+			Wolf w = (Wolf) e.getEntity();
+			Player p = (Player) e.getDamager();
+
+			if (w.getOwner().equals(p) && p.getItemInHand().getType() == Material.STICK) {
+				Bukkit.getPluginManager().getPlugin("WolfCommand").getConfig().getBoolean("DISABLE_STICK_DAMAGE");
+				e.setCancelled(true);
 			}
 		}
 	}
