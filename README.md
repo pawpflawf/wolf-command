@@ -19,7 +19,7 @@
 -- [Capped Wolf Limit](https://github.com/puppyize/WolfCommand/wiki/Features#capped-wolf-limit)
 -- [Disable Stick Damage](https://github.com/puppyize/WolfCommand/wiki/Features#disable-stick-damage)
 - [Integrations](https://github.com/puppyize/WolfCommand/wiki/Integrations)  
-~~~~~~~~~~~~~~~~~
+
 - [Planned Features](https://github.com/puppyize/WolfCommand/wiki/Planned-Features)  
 - [Planned Integrations](https://github.com/puppyize/WolfCommand/wiki/Planned-Integrations)
 
