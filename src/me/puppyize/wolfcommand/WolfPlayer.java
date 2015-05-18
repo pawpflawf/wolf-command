@@ -1,10 +1,10 @@
 package me.puppyize.wolfcommand;
 
-import net.minecraft.server.v1_8_R2.ItemFood;
+import net.minecraft.server.v1_8_R3.ItemFood;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -315,7 +315,7 @@ class WolfPlayer {
 		WolfPlayer wp = new WolfPlayer(fetchFrom);
 		List<Wolf> wps = wp.getWolves();
 
-		sendTo.sendMessage(ChatColor.BLUE + ".: Wolf Stats for " + ChatColor.UNDERLINE + ChatColor.RED + fetchFrom.getDisplayName() + ChatColor.RESET + ChatColor.BLUE + " :.");
+		sendTo.sendMessage(ChatColor.BLUE + ".: Wolf Stats for " + ChatColor.RED + fetchFrom.getDisplayName() + ChatColor.RESET + ChatColor.BLUE + " :.");
 		sendTo.sendMessage(ChatColor.GRAY + "Total tamed wolves: " + ChatColor.DARK_AQUA + wps.size());
 
 		if (wps.size() < 1) return;
@@ -341,29 +341,32 @@ class WolfPlayer {
 			else ColorArray.put(w.getCollarColor().name(), 1);
 		}
 
-		int TOTAL = wps.size();
+		double TOTAL = wps.size();
 		int ADULT = (AdultPup.containsKey("ADULT") ? AdultPup.get("ADULT") : 0);
 		int PUP = (AdultPup.containsKey("PUP") ? AdultPup.get("PUP") : 0);
 		int SITTING = (SitStand.containsKey("SITTING") ? SitStand.get("SITTING") : 0);
 		int STANDING = (SitStand.containsKey("STANDING") ? SitStand.get("STANDING") : 0);
 
+		sendTo.sendMessage(ChatColor.GREEN + "-- Adults / Pups --");
 		StringBuilder AP = new StringBuilder();
-		AP.append(ChatColor.GRAY).append("Adults: ").append(ChatColor.DARK_AQUA).append(ADULT).append(ChatColor.AQUA).append(" (").append(Math.round(ADULT / TOTAL)).append(")");
+		AP.append(ChatColor.GRAY).append("Adults: ").append(ChatColor.DARK_AQUA).append(ADULT).append(ChatColor.AQUA).append(" (").append(Math.round((ADULT / TOTAL) * 100)).append("%)");
 		AP.append(ChatColor.BLACK).append(" | ");
-		AP.append(ChatColor.GRAY).append("Pups: ").append(ChatColor.DARK_AQUA).append(PUP).append(ChatColor.AQUA).append(" (").append(Math.round(PUP / TOTAL)).append(")");
+		AP.append(ChatColor.GRAY).append("Pups: ").append(ChatColor.DARK_AQUA).append(PUP).append(ChatColor.AQUA).append(" (").append(Math.round((PUP / TOTAL) * 100)).append("%)");
 		sendTo.sendMessage(AP.toString());
 
+		sendTo.sendMessage(ChatColor.GREEN + "-- Sitting / Standing --");
 		StringBuilder SS = new StringBuilder();
-		SS.append(ChatColor.GRAY).append("Sitting: ").append(ChatColor.DARK_AQUA).append(SITTING).append(ChatColor.AQUA).append(" (").append(Math.round(SITTING / TOTAL)).append(")");
+		SS.append(ChatColor.GRAY).append("Sitting: ").append(ChatColor.DARK_AQUA).append(SITTING).append(ChatColor.AQUA).append(" (").append(Math.round((SITTING / TOTAL) * 100)).append("%)");
 		SS.append(ChatColor.BLACK).append(" | ");
-		SS.append(ChatColor.GRAY).append("Standing: ").append(ChatColor.DARK_AQUA).append(STANDING).append(ChatColor.AQUA).append(" (").append(Math.round(STANDING / TOTAL)).append(")");
+		SS.append(ChatColor.GRAY).append("Standing: ").append(ChatColor.DARK_AQUA).append(STANDING).append(ChatColor.AQUA).append(" (").append(Math.round((STANDING / TOTAL) * 100)).append("%)");
 		sendTo.sendMessage(SS.toString());
 
+		sendTo.sendMessage(ChatColor.GREEN + "-- Collar Color Array --");
 		StringBuilder COLOR = new StringBuilder();
 		for (Map.Entry<String, Integer> item : ColorArray.entrySet()) {
 			String color = item.getKey();
 			int amount = item.getValue();
-			COLOR.append(ChatColor.GRAY).append(color.toUpperCase()).append(": ").append(ChatColor.DARK_AQUA).append(amount).append(ChatColor.AQUA).append(" (").append(Math.round(amount / TOTAL)).append(")").append(ChatColor.RESET);
+			COLOR.append(ChatColor.GRAY).append(color.toUpperCase()).append(": ").append(ChatColor.DARK_AQUA).append(amount).append(ChatColor.AQUA).append(" (").append(Math.round((amount / TOTAL) * 100)).append("%) ").append(ChatColor.RESET);
 		}
 		sendTo.sendMessage(COLOR.toString());
 
@@ -447,7 +450,7 @@ class WolfPlayer {
 		ArrayList<Food> f = new ArrayList<>();
 		for (ItemStack i : p.getInventory().getContents()) {
 			if (i != null && i.getType().isEdible()) {
-				net.minecraft.server.v1_8_R2.ItemStack itemStack = CraftItemStack.asNMSCopy(i);
+				net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(i);
 				ItemFood itemFood = (ItemFood) itemStack.getItem();
 				int quality = itemFood.getNutrition(itemStack);
 

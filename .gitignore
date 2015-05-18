@@ -1,4 +1,5 @@
-src/META-INF
 .idea
-out
-ant
+bin
+dist
+build.properties
+build.xml
