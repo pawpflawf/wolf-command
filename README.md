@@ -17,6 +17,7 @@
 -- [Give Away Your Wolves](https://github.com/puppyize/WolfCommand/wiki/Features#give-away-your-wolves)
 -- [Check Wolf Statistics](https://github.com/puppyize/WolfCommand/wiki/Features#check-wolf-statistics)
 -- [Capped Wolf Limit](https://github.com/puppyize/WolfCommand/wiki/Features#capped-wolf-limit)
+-- [Disable Stick Damage](https://github.com/puppyize/WolfCommand/wiki/Features#disable-stick-damage)
 - [Integrations](https://github.com/puppyize/WolfCommand/wiki/Integrations)  
 ~~~~~~~~~~~~~~~~~
 - [Planned Features](https://github.com/puppyize/WolfCommand/wiki/Planned-Features)  
