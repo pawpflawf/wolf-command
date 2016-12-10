@@ -1,10 +1,10 @@
 package me.puppyize.wolfcommand;
 
-import net.minecraft.server.v1_8_R3.ItemFood;
+import net.minecraft.server.v1_11_R1.ItemFood;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -461,7 +461,7 @@ class WolfPlayer {
 		ArrayList<Food> f = new ArrayList<>();
 		for (ItemStack i : p.getInventory().getContents()) {
 			if (i != null && i.getType().isEdible()) {
-				net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(i);
+				net.minecraft.server.v1_11_R1.ItemStack itemStack = CraftItemStack.asNMSCopy(i);
 				ItemFood itemFood = (ItemFood) itemStack.getItem();
 				int quality = itemFood.getNutrition(itemStack);
 
