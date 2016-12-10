@@ -21,7 +21,7 @@ import java.util.logging.Level;
  * wolves.
  * </p>
  *
- * @author Puppy Firelyte <wolfcommand@puppyize.me>
+ * @author Puppy Firelyte <dev@puppyize.me>
  */
 public final class WolfCommand extends JavaPlugin {
 
