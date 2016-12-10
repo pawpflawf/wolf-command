@@ -24,22 +24,24 @@ class WolfPlayer {
 	//TODO: Move `Command Routing` functions to separate class(es)
 	//TODO: Add proper Javadocs to all functions
 	private final Double ATTACK_RANGE = 40D;
-	
+
 	/**
 	 * Keeps the current player
 	 */
 	private final Player player;
-	
+
 	/**
 	 * Creates a WolfPlayer to decorate a Player object
+	 *
 	 * @param player current active player
 	 */
 	public WolfPlayer(Player player) {
 		this.player = player;
 	}
-	
+
 	/**
 	 * Sets all Player tamed wolves to a standing state
+	 *
 	 * @return number of wolves set to sitting
 	 */
 	public int sitWolves() {
@@ -52,16 +54,16 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
 	 */
 	public int sitWolves(int numWolves) {
 		int count = 0;
-		if(numWolves > 0){
+		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
 				if (numWolves < 1) break;
-				
+
 				if (!w.isSitting()) {
 					w.setSitting(true);
 					numWolves--;
@@ -73,9 +75,10 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Sets tamed wolves with a specified collar color to a standing state
+	 *
 	 * @return number of wolves set to sitting
 	 */
 	public int sitWolves(DyeColor c) {
@@ -88,9 +91,10 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Sets all Player tamed wolves to a standing state
+	 *
 	 * @return number of wolves set to standing
 	 */
 	public int standWolves() {
@@ -103,16 +107,16 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
 	 */
 	public int standWolves(int numWolves) {
 		int count = 0;
-		if(numWolves > 0){
+		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
 				if (numWolves < 1) break;
-				
+
 				if (w.isSitting()) {
 					w.setSitting(false);
 					numWolves--;
@@ -124,9 +128,10 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Sets tamed wolves with a specified collar color to a standing state
+	 *
 	 * @return number of wolves set to standing
 	 */
 	public int standWolves(DyeColor c) {
@@ -156,7 +161,7 @@ class WolfPlayer {
 				affected = colorWolfCollar(color, false);
 				break;
 			default:
-				if(group.startsWith("NUM:")){
+				if (group.startsWith("NUM:")) {
 					group = group.substring(4);
 					affected = colorWolfCollar(color, Integer.valueOf(group));
 				} else {
@@ -169,10 +174,11 @@ class WolfPlayer {
 
 	/**
 	 * Colors all player's tamed wolves collars to specified color
-	 * @param	c	specified DyeColor
-	 * @return	number of changed wolves
+	 *
+	 * @param    c    specified DyeColor
+	 * @return number of changed wolves
 	 */
-	private int colorWolfCollar(DyeColor c){
+	private int colorWolfCollar(DyeColor c) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (w.getCollarColor() != c) {
@@ -182,14 +188,15 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Colors player's tamed sitting or standing wolves to the specified color
-	 * @param	c	specified DyeColor
-	 * @param	isSitting	boolean of WolfState
-	 * @return	number of changed wolves
+	 *
+	 * @param    c    specified DyeColor
+	 * @param    isSitting    boolean of WolfState
+	 * @return number of changed wolves
 	 */
-	private int colorWolfCollar(DyeColor c, boolean isSitting){
+	private int colorWolfCollar(DyeColor c, boolean isSitting) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if ((w.isSitting() == isSitting) & (w.getCollarColor() != c)) {
@@ -199,19 +206,20 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Color's defined number of player's tamed wolves to the specified color
-	 * @param	c	specified DyeColor
-	 * @param	numWolves	integer describing how many wolves to change
+	 *
+	 * @param    c    specified DyeColor
+	 * @param    numWolves    integer describing how many wolves to change
 	 */
 	private int colorWolfCollar(DyeColor c, int numWolves) {
 		int count = 0;
-		if(numWolves > 0){
+		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
-				if(numWolves < 1) break;
-				if(w.getCollarColor() == c) continue;
-				
+				if (numWolves < 1) break;
+				if (w.getCollarColor() == c) continue;
+
 				w.setCollarColor(c);
 				numWolves--;
 				count++;
@@ -238,7 +246,7 @@ class WolfPlayer {
 				affected = sendWolf(p, false);
 				break;
 			default:
-				if(group.startsWith("NUM:")){
+				if (group.startsWith("NUM:")) {
 					group = group.substring(4);
 					affected = sendWolf(p, Integer.valueOf(group));
 				} else {
@@ -251,7 +259,8 @@ class WolfPlayer {
 
 	/**
 	 * Gives all tamed wolves to specified Player
-	 * @param    sendTo    specified Player
+	 *
+	 * @param sendTo specified Player
 	 * @return number of transferred wolves
 	 */
 	private int sendWolf(Player sendTo) {
@@ -268,7 +277,8 @@ class WolfPlayer {
 
 	/**
 	 * Gives all tamed wolves to specified Player
-	 * @param    sendTo    specified Player
+	 *
+	 * @param sendTo    specified Player
 	 * @param isSitting boolean of WolfState
 	 * @return number of transferred wolves
 	 */
@@ -286,8 +296,9 @@ class WolfPlayer {
 
 	/**
 	 * Gives all tamed wolves to specified Player
-	 * @param    sendTo    specified Player
-	 * @param numWolves  number of wolves to transfer
+	 *
+	 * @param sendTo    specified Player
+	 * @param numWolves number of wolves to transfer
 	 * @return number of transferred wolves
 	 */
 	private int sendWolf(Player sendTo, int numWolves) {
@@ -587,29 +598,31 @@ class WolfPlayer {
 
 	/**
 	 * Untames tamed wolves based on state
-	 * @param	isSitting	desired state of wolves
+	 *
+	 * @param    isSitting    desired state of wolves
 	 */
 	public int untameWolf(boolean isSitting) {
 		int numWolves = 0;
-		
+
 		for (Wolf w : this.getWolves()) {
 			if (w.isTamed() && (w.isSitting() == isSitting)) {
 				this.setUntame(w);
 				numWolves++;
 			}
 		}
-		
+
 		return numWolves;
 	}
-	
+
 	/**
 	 * Untames desired number of wolves. Negative numbers will untame all but the specified number.
-	 * @param	number	desired number of wolves
+	 *
+	 * @param    number    desired number of wolves
 	 */
 	public int untameWolf(int number) {
 		int numWolves = this.getWolves().size();
-		
-		if(number >= 0){
+
+		if (number >= 0) {
 			numWolves = number;
 		} else {
 			numWolves = numWolves + number; // Add number since negative already
@@ -617,7 +630,7 @@ class WolfPlayer {
 
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if(numWolves < 1) break;
+			if (numWolves < 1) break;
 			if (w.isTamed()) {
 				this.setUntame(w);
 				numWolves--;
@@ -626,48 +639,52 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Untames tamed wolves based on their collar color
-	 * @param	c	specified DyeColor
+	 *
+	 * @param    c    specified DyeColor
 	 */
-	public int untameWolf(DyeColor c){
-		int numWolves = 0; 
-		
+	public int untameWolf(DyeColor c) {
+		int numWolves = 0;
+
 		for (Wolf w : this.getWolves()) {
-			if(w.getCollarColor() == c){
+			if (w.getCollarColor() == c) {
 				this.setUntame(w);
 				numWolves++;
 			}
 		}
-		
+
 		return numWolves;
 	}
-	
-	
+
+
 	/**
 	 * Untames an individual wolf
+	 *
 	 * @param target wolf entity to untame
 	 */
 	public void untameWolf(LivingEntity target) {
 		for (Wolf w : this.getWolves()) {
-			if(target.getUniqueId() == w.getUniqueId()){
+			if (target.getUniqueId() == w.getUniqueId()) {
 				this.setUntame(w);
 			}
 		}
 	}
-	
+
 	/**
 	 * Set tamed wolf to standing then untames them
-	 * @param	w	wolf to untame
+	 *
+	 * @param    w    wolf to untame
 	 */
-	private void setUntame(Wolf w){
+	private void setUntame(Wolf w) {
 		w.setSitting(false); // Make stand before untaming to prevent AI breaking
 		w.setTamed(false);
 	}
-	
+
 	/**
 	 * Teleports standing wolves to Player
+	 *
 	 * @return number of wolves that return to player
 	 */
 	public int returnToPlayer() {
@@ -680,9 +697,10 @@ class WolfPlayer {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * Gets player's tamed wolves
+	 *
 	 * @return List of currently tamed wolves
 	 */
 	public List<Wolf> getWolves() {
@@ -697,9 +715,10 @@ class WolfPlayer {
 		}
 		return entities;
 	}
-	
+
 	/**
 	 * Sets player's wolves target
+	 *
 	 * @param target the LivingEntity in player crosshair
 	 */
 	public void setTarget(LivingEntity target) {
@@ -709,95 +728,97 @@ class WolfPlayer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Gets the closest tamed wolf in player's crosshair
+	 *
 	 * @return target
 	 */
 	public LivingEntity getWolfTarget() {
 		Location observerPos = this.player.getEyeLocation();
-        Vector3D observerDir = new Vector3D(observerPos.getDirection());
-        Vector3D observerStart = new Vector3D(observerPos);
-        Vector3D observerEnd = observerStart.add(observerDir.multiply(ATTACK_RANGE));
-        Entity targetEntity = null;
+		Vector3D observerDir = new Vector3D(observerPos.getDirection());
+		Vector3D observerStart = new Vector3D(observerPos);
+		Vector3D observerEnd = observerStart.add(observerDir.multiply(ATTACK_RANGE));
+		Entity targetEntity = null;
 
-        // Loop through nearby entities (may be slow if too many around)
-        for (Entity entity : this.player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
-        	// Skip not living entities
-        	if (!(entity instanceof LivingEntity)) {
-        		continue;
-        	}
-        	
-        	if (!this.player.hasLineOfSight(entity)) {
-        		continue;
-        	}
+		// Loop through nearby entities (may be slow if too many around)
+		for (Entity entity : this.player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
+			// Skip not living entities
+			if (!(entity instanceof LivingEntity)) {
+				continue;
+			}
 
-        	// Select only our own wolves
-        	if (entity instanceof Tameable && entity instanceof Wolf) {
-        		Tameable t = (Tameable) entity;
-        		if (t.isTamed() && t.getOwner() == this.player) {
-        			Vector3D targetPos = new Vector3D(entity.getLocation());
-                    Vector3D minimum = targetPos.add(-0.5, 0, -0.5);
-                    Vector3D maximum = targetPos.add(0.5, 1.67, 0.5);
+			if (!this.player.hasLineOfSight(entity)) {
+				continue;
+			}
 
-                    if (entity != this.player && Vector3D.hasIntersection(observerStart, observerEnd, minimum, maximum)) {
-                    	// Get closest living entity on vector
-                        if (targetEntity == null ||
-                        	targetEntity.getLocation().distanceSquared(observerPos) > entity.getLocation().distanceSquared(observerPos)) {
-                            targetEntity = entity;
-                        }
-                    }
-        		}
-        	}
-        }
-        return (LivingEntity) targetEntity;
+			// Select only our own wolves
+			if (entity instanceof Tameable && entity instanceof Wolf) {
+				Tameable t = (Tameable) entity;
+				if (t.isTamed() && t.getOwner() == this.player) {
+					Vector3D targetPos = new Vector3D(entity.getLocation());
+					Vector3D minimum = targetPos.add(-0.5, 0, -0.5);
+					Vector3D maximum = targetPos.add(0.5, 1.67, 0.5);
+
+					if (entity != this.player && Vector3D.hasIntersection(observerStart, observerEnd, minimum, maximum)) {
+						// Get closest living entity on vector
+						if (targetEntity == null ||
+								    targetEntity.getLocation().distanceSquared(observerPos) > entity.getLocation().distanceSquared(observerPos)) {
+							targetEntity = entity;
+						}
+					}
+				}
+			}
+		}
+		return (LivingEntity) targetEntity;
 	}
-	
+
 	/**
 	 * Gets the closest LivingEntity in player's crosshair
+	 *
 	 * @return target
 	 */
 	public LivingEntity getTarget() {
 		Location observerPos = this.player.getEyeLocation();
-        Vector3D observerDir = new Vector3D(observerPos.getDirection());
-        Vector3D observerStart = new Vector3D(observerPos);
-        Vector3D observerEnd = observerStart.add(observerDir.multiply(ATTACK_RANGE));
-        Entity targetEntity = null;
+		Vector3D observerDir = new Vector3D(observerPos.getDirection());
+		Vector3D observerStart = new Vector3D(observerPos);
+		Vector3D observerEnd = observerStart.add(observerDir.multiply(ATTACK_RANGE));
+		Entity targetEntity = null;
 
-        // Loop through nearby entities (may be slow if too many around)
-        for (Entity entity : this.player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
-        	// Skip not living entities
-        	if (!(entity instanceof LivingEntity)) {
-        		continue;
-        	}
+		// Loop through nearby entities (may be slow if too many around)
+		for (Entity entity : this.player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
+			// Skip not living entities
+			if (!(entity instanceof LivingEntity)) {
+				continue;
+			}
 
-        	// Skip our own wolves
-        	if (entity instanceof Tameable && entity instanceof Wolf) {
-        		Tameable t = (Tameable) entity;
-        		if (t.isTamed() && t.getOwner() == this.player) {
-        			continue;
-        		}
-        	}
+			// Skip our own wolves
+			if (entity instanceof Tameable && entity instanceof Wolf) {
+				Tameable t = (Tameable) entity;
+				if (t.isTamed() && t.getOwner() == this.player) {
+					continue;
+				}
+			}
 
-        	// We can't attack what we can't see
-        	if (!this.player.hasLineOfSight(entity)) {
-        		continue;
-        	}
+			// We can't attack what we can't see
+			if (!this.player.hasLineOfSight(entity)) {
+				continue;
+			}
 
-        	// Bukkit API does not export an axis-aligned bounding box, so we'll settle for this
-        	// Bounding box is set to 1 block in width and 1.67 blocks high from entity's center
-        	Vector3D targetPos = new Vector3D(entity.getLocation());
-            Vector3D minimum = targetPos.add(-0.5, 0, -0.5);
-            Vector3D maximum = targetPos.add(0.5, 1.67, 0.5);
+			// Bukkit API does not export an axis-aligned bounding box, so we'll settle for this
+			// Bounding box is set to 1 block in width and 1.67 blocks high from entity's center
+			Vector3D targetPos = new Vector3D(entity.getLocation());
+			Vector3D minimum = targetPos.add(-0.5, 0, -0.5);
+			Vector3D maximum = targetPos.add(0.5, 1.67, 0.5);
 
-            if (entity != this.player && Vector3D.hasIntersection(observerStart, observerEnd, minimum, maximum)) {
-            	// Get closest living entity on vector
-                if (targetEntity == null ||
-                	targetEntity.getLocation().distanceSquared(observerPos) > entity.getLocation().distanceSquared(observerPos)) {
-                    targetEntity = entity;
-                }
-            }
-        }
-        return (LivingEntity) targetEntity;
+			if (entity != this.player && Vector3D.hasIntersection(observerStart, observerEnd, minimum, maximum)) {
+				// Get closest living entity on vector
+				if (targetEntity == null ||
+						    targetEntity.getLocation().distanceSquared(observerPos) > entity.getLocation().distanceSquared(observerPos)) {
+					targetEntity = entity;
+				}
+			}
+		}
+		return (LivingEntity) targetEntity;
 	}
 }

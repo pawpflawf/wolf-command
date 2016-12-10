@@ -55,13 +55,13 @@ final class WolfListener implements Listener {
 			wp.setTarget(target);
 		}
 	}
-	
+
 	@EventHandler
-	public void untameWolf(PlayerInteractEvent e){
+	public void untameWolf(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
-	
-		if(p.getItemInHand().getType() == Material.RED_MUSHROOM){
-			if(p.hasPermission("wolf.untame.manual") || p.hasPermission("wolf.untame")){
+
+		if (p.getItemInHand().getType() == Material.RED_MUSHROOM) {
+			if (p.hasPermission("wolf.untame.manual") || p.hasPermission("wolf.untame")) {
 				WolfPlayer wp = new WolfPlayer(p);
 				wp.untameWolf(wp.getWolfTarget());
 

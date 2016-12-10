@@ -1,5 +1,3 @@
 .idea
 bin
 dist
-build.properties
-build.xml

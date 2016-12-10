@@ -1,7 +1,7 @@
 name: WolfCommand
-version: @VERSION@
+version: 2.8
 description: Serious taming!
-author: PuppyFirelyte
+author: Puppyize
 website: https://github.com/puppyize/WolfCommand
 
 main: me.puppyize.wolfcommand.WolfCommand

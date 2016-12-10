@@ -58,4 +58,4 @@ The following data is **sent** to http://mcstats.org and can be seen under [http
 
 _**Developer Note**_: If you feel the plugin is missing something or can benefit with something already existing acting differently, we want to hear about it! You can submit an [Issue](https://github.com/puppyize/WolfCommand/issues/new) here at GitHub, or you can comment / PM on any one of our external resource sites! You could even send an email to <dev@puppyize.me> with the subject "Suggestion" and we'll look into it! 
 
-### PLEASE REPORT ALL BUGS ###  
+**PLEASE REPORT ALL BUGS!**  
