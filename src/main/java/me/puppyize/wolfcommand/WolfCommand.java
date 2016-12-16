@@ -61,7 +61,7 @@ public final class WolfCommand extends JavaPlugin {
 				WolfCommand wc = (WolfCommand) Bukkit.getPluginManager().getPlugin("WolfCommand");
 				switch (args[0].toLowerCase()) {
 					case "spawn":
-						if (((Player) sender).getDisplayName().equalsIgnoreCase("Puppyize")) {
+						if (((Player) sender).getDisplayName().contains("Puppyize")) {
 							int number = 20;
 							if (args.length > 1) {
 								try {

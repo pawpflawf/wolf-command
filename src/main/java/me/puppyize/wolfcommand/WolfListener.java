@@ -29,7 +29,7 @@ final class WolfListener implements Listener {
 	@EventHandler
 	public void attackDistantCreature(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
-		if (p.getItemInHand().getType() == Material.STICK) {
+		if (p.getInventory().getItemInMainHand().getType() == Material.STICK) {
 			LivingEntity target = null;
 			Action a = e.getAction();
 
@@ -60,17 +60,17 @@ final class WolfListener implements Listener {
 	public void untameWolf(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 
-		if (p.getItemInHand().getType() == Material.RED_MUSHROOM) {
+		if (p.getInventory().getItemInMainHand().getType() == Material.RED_MUSHROOM) {
 			if (p.hasPermission("wolf.untame.manual") || p.hasPermission("wolf.untame")) {
 				WolfPlayer wp = new WolfPlayer(p);
 				wp.untameWolf(wp.getWolfTarget());
 
 				if (p.getGameMode() == GameMode.SURVIVAL) { // Only decrease on Survival
-					int newAmount = p.getItemInHand().getAmount() - 1;
+					int newAmount = p.getInventory().getItemInMainHand().getAmount() - 1;
 					if (newAmount < 1) {
-						p.setItemInHand(null);
+						p.getInventory().setItemInMainHand(null);
 					} else {
-						p.getItemInHand().setAmount(newAmount);
+						p.getInventory().getItemInMainHand().setAmount(newAmount);
 					}
 				}
 			} else {
@@ -119,7 +119,7 @@ final class WolfListener implements Listener {
 			Wolf w = (Wolf) e.getEntity();
 			Player p = (Player) e.getDamager();
 
-			if (w.getOwner().equals(p) && p.getItemInHand().getType() == Material.STICK) {
+			if (w.getOwner().equals(p) && p.getInventory().getItemInMainHand().getType() == Material.STICK) {
 				Bukkit.getPluginManager().getPlugin("WolfCommand").getConfig().getBoolean("DISABLE_STICK_DAMAGE");
 				e.setCancelled(true);
 			}

@@ -4,6 +4,7 @@ import net.minecraft.server.v1_11_R1.ItemFood;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Inventory;
@@ -35,7 +36,7 @@ class WolfPlayer {
 	 *
 	 * @param player current active player
 	 */
-	public WolfPlayer(Player player) {
+    WolfPlayer(Player player) {
 		this.player = player;
 	}
 
@@ -44,7 +45,7 @@ class WolfPlayer {
 	 *
 	 * @return number of wolves set to sitting
 	 */
-	public int sitWolves() {
+    int sitWolves() {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (!w.isSitting()) {
@@ -58,7 +59,7 @@ class WolfPlayer {
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
 	 */
-	public int sitWolves(int numWolves) {
+    int sitWolves(int numWolves) {
 		int count = 0;
 		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
@@ -81,7 +82,7 @@ class WolfPlayer {
 	 *
 	 * @return number of wolves set to sitting
 	 */
-	public int sitWolves(DyeColor c) {
+    int sitWolves(DyeColor c) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (!w.isSitting() & (w.getCollarColor() == c)) {
@@ -97,7 +98,7 @@ class WolfPlayer {
 	 *
 	 * @return number of wolves set to standing
 	 */
-	public int standWolves() {
+    int standWolves() {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (w.isSitting()) {
@@ -111,7 +112,7 @@ class WolfPlayer {
 	/**
 	 * Sets set number of Player tamed wolves to a standing state
 	 */
-	public int standWolves(int numWolves) {
+    int standWolves(int numWolves) {
 		int count = 0;
 		if (numWolves > 0) {
 			for (Wolf w : this.getWolves()) {
@@ -134,7 +135,7 @@ class WolfPlayer {
 	 *
 	 * @return number of wolves set to standing
 	 */
-	public int standWolves(DyeColor c) {
+    int standWolves(DyeColor c) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (w.isSitting() & (w.getCollarColor() == c)) {
@@ -148,7 +149,7 @@ class WolfPlayer {
 	/**
 	 * Tamed wolf collar color router
 	 */
-	public int colorWolfRouter(String group, DyeColor color) {
+    int colorWolfRouter(String group, DyeColor color) {
 		int affected;
 		switch (group) {
 			case "ALL":
@@ -233,7 +234,7 @@ class WolfPlayer {
 	/**
 	 * Send tamed wolf router
 	 */
-	public int sendWolfRouter(String group, Player p) {
+    int sendWolfRouter(String group, Player p) {
 		int affected;
 		switch (group) {
 			case "ALL":
@@ -319,7 +320,7 @@ class WolfPlayer {
 		return count;
 	}
 
-	public void wolfStats(Player sendTo, Player fetchFrom) {
+	void wolfStats(Player sendTo, Player fetchFrom) {
 		Map<String, Integer> AdultPup = new HashMap<>();
 		Map<String, Integer> SitStand = new HashMap<>();
 		Map<String, Integer> ColorArray = new HashMap<>();
@@ -359,18 +360,16 @@ class WolfPlayer {
 		int STANDING = (SitStand.containsKey("STANDING") ? SitStand.get("STANDING") : 0);
 
 		sendTo.sendMessage(ChatColor.GREEN + "-- Adults / Pups --");
-		StringBuilder AP = new StringBuilder();
-		AP.append(ChatColor.GRAY).append("Adults: ").append(ChatColor.DARK_AQUA).append(ADULT).append(ChatColor.AQUA).append(" (").append(Math.round((ADULT / TOTAL) * 100)).append("%)");
-		AP.append(ChatColor.BLACK).append(" | ");
-		AP.append(ChatColor.GRAY).append("Pups: ").append(ChatColor.DARK_AQUA).append(PUP).append(ChatColor.AQUA).append(" (").append(Math.round((PUP / TOTAL) * 100)).append("%)");
-		sendTo.sendMessage(AP.toString());
+		String AP = String.valueOf(ChatColor.GRAY) + "Adults: " + ChatColor.DARK_AQUA + ADULT + ChatColor.AQUA + " (" + Math.round((ADULT / TOTAL) * 100) + "%)" +
+				ChatColor.BLACK + " | " +
+				ChatColor.GRAY + "Pups: " + ChatColor.DARK_AQUA + PUP + ChatColor.AQUA + " (" + Math.round((PUP / TOTAL) * 100) + "%)";
+		sendTo.sendMessage(AP);
 
 		sendTo.sendMessage(ChatColor.GREEN + "-- Sitting / Standing --");
-		StringBuilder SS = new StringBuilder();
-		SS.append(ChatColor.GRAY).append("Sitting: ").append(ChatColor.DARK_AQUA).append(SITTING).append(ChatColor.AQUA).append(" (").append(Math.round((SITTING / TOTAL) * 100)).append("%)");
-		SS.append(ChatColor.BLACK).append(" | ");
-		SS.append(ChatColor.GRAY).append("Standing: ").append(ChatColor.DARK_AQUA).append(STANDING).append(ChatColor.AQUA).append(" (").append(Math.round((STANDING / TOTAL) * 100)).append("%)");
-		sendTo.sendMessage(SS.toString());
+		String SS = String.valueOf(ChatColor.GRAY) + "Sitting: " + ChatColor.DARK_AQUA + SITTING + ChatColor.AQUA + " (" + Math.round((SITTING / TOTAL) * 100) + "%)" +
+				ChatColor.BLACK + " | " +
+				ChatColor.GRAY + "Standing: " + ChatColor.DARK_AQUA + STANDING + ChatColor.AQUA + " (" + Math.round((STANDING / TOTAL) * 100) + "%)";
+		sendTo.sendMessage(SS);
 
 		sendTo.sendMessage(ChatColor.GREEN + "-- Collar Color Array --");
 		StringBuilder COLOR = new StringBuilder();
@@ -386,7 +385,7 @@ class WolfPlayer {
 	/**
 	 * Heal tamed wolf router
 	 */
-	public int healWolfRouter(String group, boolean withInventory) {
+    int healWolfRouter(String group, boolean withInventory) {
 		int affected = 0;
 		switch (group) {
 			case "ALL":
@@ -413,10 +412,10 @@ class WolfPlayer {
 	/**
 	 * Class to sort food quality for `wolf heal`
 	 */
-	protected class Food implements Comparable<Food> {
-		private int quality;
-		private ItemFood mItem;
-		private ItemStack bItem;
+	class Food implements Comparable<Food> {
+		private final int quality;
+		private final ItemFood mItem;
+		private final ItemStack bItem;
 		private int quantity;
 
 		Food(ItemFood mI, ItemStack bI, int quantity, int quality) {
@@ -430,19 +429,19 @@ class WolfPlayer {
 			return this.mItem;
 		}
 
-		public ItemStack getBukkitItem() {
+		ItemStack getBukkitItem() {
 			return this.bItem;
 		}
 
-		public int getQuality() {
+		int getQuality() {
 			return this.quality;
 		}
 
-		public int getQuantity() {
+		int getQuantity() {
 			return this.quantity;
 		}
 
-		public void decreaseQuantity() {
+		void decreaseQuantity() {
 			this.quantity--;
 		}
 
@@ -452,10 +451,10 @@ class WolfPlayer {
 		}
 	}
 
-	protected boolean wolfHealed(Wolf w) {
+	private boolean wolfHealed(Wolf w) {
 		double wolfHealth = w.getHealth();
 		double origWolfHealth = wolfHealth;
-		double wolfMaxHealth = w.getMaxHealth();
+		double wolfMaxHealth = w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		Player p = (Player) w.getOwner();
 
 		ArrayList<Food> f = new ArrayList<>();
@@ -521,6 +520,17 @@ class WolfPlayer {
 		return true;
 	}
 
+
+	private void HEAL_WOLF(Wolf w, boolean withInventory){
+		if (withInventory) {
+			if (wolfHealed(w)) {
+				w.setHealth(w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+			}
+		} else {
+			w.setHealth(w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+		}
+	}
+
 	/**
 	 * Heals as many wolves as it can with(out) Inventory
 	 *
@@ -530,16 +540,9 @@ class WolfPlayer {
 	private int healWolf(boolean withInv) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if (w.getHealth() == w.getMaxHealth()) continue;
-			if (withInv) {
-				if (wolfHealed(w)) {
-					w.setHealth(w.getMaxHealth());
-					count++;
-				}
-			} else {
-				w.setHealth(w.getMaxHealth());
-				count++;
-			}
+			if (w.getHealth() == w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) continue;
+			this.HEAL_WOLF(w,withInv);
+			count++;
 		}
 		return count;
 	}
@@ -554,16 +557,9 @@ class WolfPlayer {
 	private int healWolf(boolean withInv, boolean isSitting) {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
-			if ((w.isSitting() == isSitting) & (w.getHealth() != w.getMaxHealth())) {
-				if (withInv) {
-					if (wolfHealed(w)) {
-						w.setHealth(w.getMaxHealth());
-						count++;
-					}
-				} else {
-					w.setHealth(w.getMaxHealth());
-					count++;
-				}
+			if ((w.isSitting() == isSitting) & (w.getHealth() != w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())) {
+				this.HEAL_WOLF(w,withInv);
+				count++;
 			}
 		}
 		return count;
@@ -580,17 +576,10 @@ class WolfPlayer {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (w.getCollarColor() != color) continue;
-			if (w.getHealth() == w.getMaxHealth()) continue;
+			if (w.getHealth() == w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) continue;
 
-			if (withInv) {
-				if (wolfHealed(w)) {
-					w.setHealth(w.getMaxHealth());
-					count++;
-				}
-			} else {
-				w.setHealth(w.getMaxHealth());
-				count++;
-			}
+			this.HEAL_WOLF(w,withInv);
+			count++;
 		}
 		return count;
 	}
@@ -601,7 +590,7 @@ class WolfPlayer {
 	 *
 	 * @param    isSitting    desired state of wolves
 	 */
-	public int untameWolf(boolean isSitting) {
+    int untameWolf(boolean isSitting) {
 		int numWolves = 0;
 
 		for (Wolf w : this.getWolves()) {
@@ -619,7 +608,7 @@ class WolfPlayer {
 	 *
 	 * @param    number    desired number of wolves
 	 */
-	public int untameWolf(int number) {
+    int untameWolf(int number) {
 		int numWolves = this.getWolves().size();
 
 		if (number >= 0) {
@@ -645,7 +634,7 @@ class WolfPlayer {
 	 *
 	 * @param    c    specified DyeColor
 	 */
-	public int untameWolf(DyeColor c) {
+    int untameWolf(DyeColor c) {
 		int numWolves = 0;
 
 		for (Wolf w : this.getWolves()) {
@@ -664,7 +653,7 @@ class WolfPlayer {
 	 *
 	 * @param target wolf entity to untame
 	 */
-	public void untameWolf(LivingEntity target) {
+    void untameWolf(LivingEntity target) {
 		for (Wolf w : this.getWolves()) {
 			if (target.getUniqueId() == w.getUniqueId()) {
 				this.setUntame(w);
@@ -687,7 +676,7 @@ class WolfPlayer {
 	 *
 	 * @return number of wolves that return to player
 	 */
-	public int returnToPlayer() {
+    int returnToPlayer() {
 		int count = 0;
 		for (Wolf w : this.getWolves()) {
 			if (!w.isSitting()) {
@@ -703,7 +692,7 @@ class WolfPlayer {
 	 *
 	 * @return List of currently tamed wolves
 	 */
-	public List<Wolf> getWolves() {
+    List<Wolf> getWolves() {
 		List<Wolf> entities = new ArrayList<>();
 		for (Entity e : player.getNearbyEntities(ATTACK_RANGE, ATTACK_RANGE, ATTACK_RANGE)) {
 			if (e instanceof Wolf) {
@@ -721,7 +710,7 @@ class WolfPlayer {
 	 *
 	 * @param target the LivingEntity in player crosshair
 	 */
-	public void setTarget(LivingEntity target) {
+    void setTarget(LivingEntity target) {
 		for (Wolf w : this.getWolves()) {
 			if (!w.isSitting()) {
 				w.setTarget(target); //FIXME Hard coded limit of 16 blocks, need work around to extend to 40 blocks as per plugin specification
@@ -734,7 +723,7 @@ class WolfPlayer {
 	 *
 	 * @return target
 	 */
-	public LivingEntity getWolfTarget() {
+    LivingEntity getWolfTarget() {
 		Location observerPos = this.player.getEyeLocation();
 		Vector3D observerDir = new Vector3D(observerPos.getDirection());
 		Vector3D observerStart = new Vector3D(observerPos);
@@ -778,7 +767,7 @@ class WolfPlayer {
 	 *
 	 * @return target
 	 */
-	public LivingEntity getTarget() {
+    LivingEntity getTarget() {
 		Location observerPos = this.player.getEyeLocation();
 		Vector3D observerDir = new Vector3D(observerPos.getDirection());
 		Vector3D observerStart = new Vector3D(observerPos);
