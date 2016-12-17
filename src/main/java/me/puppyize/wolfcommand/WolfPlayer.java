@@ -713,7 +713,8 @@ class WolfPlayer {
     void setTarget(LivingEntity target) {
 		for (Wolf w : this.getWolves()) {
 			if (!w.isSitting()) {
-				w.setTarget(target); //FIXME Hard coded limit of 16 blocks, need work around to extend to 40 blocks as per plugin specification
+				w.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(40.0D);
+				w.setTarget(target);
 			}
 		}
 	}

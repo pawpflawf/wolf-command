@@ -33,7 +33,6 @@ final class WolfListener implements Listener {
 			LivingEntity target = null;
 			Action a = e.getAction();
 
-
 			WolfPlayer wp = new WolfPlayer(p); // Decorate Player object
 
 			if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {
