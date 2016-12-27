@@ -119,8 +119,8 @@ final class WolfListener implements Listener {
 			Player p = (Player) e.getDamager();
 
 			if (w.getOwner().equals(p) && p.getInventory().getItemInMainHand().getType() == Material.STICK) {
-				Bukkit.getPluginManager().getPlugin("WolfCommand").getConfig().getBoolean("DISABLE_STICK_DAMAGE");
-				e.setCancelled(true);
+				if(Bukkit.getPluginManager().getPlugin("WolfCommand").getConfig().getBoolean("DISABLE_STICK_DAMAGE"))
+					e.setCancelled(true);
 			}
 		}
 	}

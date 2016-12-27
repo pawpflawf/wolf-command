@@ -1,6 +1,7 @@
 package me.puppyize.wolfcommand;
 
 import net.minecraft.server.v1_11_R1.ItemFood;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -711,9 +712,12 @@ class WolfPlayer {
 	 * @param target the LivingEntity in player crosshair
 	 */
     void setTarget(LivingEntity target) {
+		   WolfCommand wc =  (WolfCommand) Bukkit.getPluginManager().getPlugin("WolfCommand");
+		   int distance = wc.getConfig().getInt("WOLF_ATTACK_DISTANCE");
+
 		for (Wolf w : this.getWolves()) {
 			if (!w.isSitting()) {
-				w.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(40.0D);
+				w.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(distance);
 				w.setTarget(target);
 			}
 		}
