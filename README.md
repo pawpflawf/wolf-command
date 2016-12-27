@@ -1,9 +1,11 @@
 # Wolf Command - Serious Taming #
-## Latest: 2.9.0 - Spigot 1.11 ##
+## Latest: 2.9.1 - Spigot 1.11.2 ##
 
 **WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to attack monsters at range by swinging a stick at their target and full control over wolf state and various other essential attributes. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
 
 **WolfCommand** now takes advantage of MCStats for plugin statistical purposes. Statistical information retrieved from this tool is exclusively used by the developer to understand how the plugin is implemented and used 'in the wild' (a.k.a. production). Easy opt-out instructions are defined below! :D  
+
+_Current feature versions of **WolfCommand** for earlier versions of Spigot can be requested, if needed._  
 
 -----  
 
@@ -19,7 +21,7 @@
 -- [Capped Wolf Limit](https://github.com/puppyize/WolfCommand/wiki/Features#capped-wolf-limit)  
 -- [Disable Stick Damage](https://github.com/puppyize/WolfCommand/wiki/Features#disable-stick-damage)  
 - [Integrations](https://github.com/puppyize/WolfCommand/wiki/Integrations)  
-
+  
 - [Planned Features](https://github.com/puppyize/WolfCommand/wiki/Planned-Features)  
 - [Planned Integrations](https://github.com/puppyize/WolfCommand/wiki/Planned-Integrations)
 
