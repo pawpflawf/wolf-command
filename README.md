@@ -21,7 +21,7 @@ _Current feature versions of **WolfCommand** for earlier versions of Spigot can 
 - [Configs](https://github.com/puppyize/WolfCommand/wiki/Configs)  
 -- [Capped Wolf Limit](https://github.com/puppyize/WolfCommand/wiki/Configs#capped-wolf-limit)  
 -- [Disable Stick Damage](https://github.com/puppyize/WolfCommand/wiki/Configs#disable-stick-damage)  
--- [Check Wolf Statistics](https://github.com/puppyize/WolfCommand/wiki/Configs#customizable-wolf-attack-distance)  
+-- [Customizable Wolf Attack Distance](https://github.com/puppyize/WolfCommand/wiki/Configs#customizable-wolf-attack-distance)  
 - [Integrations](https://github.com/puppyize/WolfCommand/wiki/Integrations)  
   
 - [Planned Features](https://github.com/puppyize/WolfCommand/wiki/Planned-Features)  
