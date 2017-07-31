@@ -1,5 +1,5 @@
 # Wolf Command - Serious Taming #
-## Latest: 2.9.1 - Spigot 1.11.2 ##
+## Latest: 2.10 - Spigot 1.12 ##
 
 **WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to attack monsters at range by swinging a stick at their target and full control over wolf state and various other essential attributes. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
 
@@ -29,30 +29,7 @@ _Current feature versions of **WolfCommand** for earlier versions of Spigot can 
 
 -----
 
-### MCStats / Metrics ###
-
-**Disabling Metrics**
-The file ../plugins/Plugin Metrics/config.yml contains an option to opt-out  
-
-The following data is **read** from the server in some way or another  
-
-- File Contents of plugins/Plugin Metrics/config.yml (created if not existent)
-- Players currently online (not max player count)
-- Server version string (the same version string you see in /version)
-- Plugin version of the metrics-supported plugin
-
-The following data is **sent** to http://mcstats.org and can be seen under [http://mcstats.org/plugin/WolfCommand](http://mcstats.org/plugin/WolfCommand 'MCStats Page')
-
-- Metrics revision of the implementing class
-- Server's GUID
-- Players currently online (not max player count)
-- Server version string (the same version string you see in /version)
-- Plugin version of the metrics-supported plugin
-
------
-
 ### External Links ###
-- [MCStats](http://mcstats.org/plugin/WolfCommand 'MCStats Details')
 - [Bukkit Project](http://dev.bukkit.org/bukkit-plugins/wolfcommand/ 'Bukkit Project Page')
 - [Spigot Project](http://www.spigotmc.org/resources/wolfcommand.4717/ 'Spigot Project Page')
 - [GitHub Repo](https://github.com/puppyize/WolfCommand 'WolfCommand Repository')
@@ -60,6 +37,6 @@ The following data is **sent** to http://mcstats.org and can be seen under [http
 
 -----
 
-_**Developer Note**_: If you feel the plugin is missing something or can benefit with something already existing acting differently, we want to hear about it! You can submit an [Issue](https://github.com/puppyize/WolfCommand/issues/new) here at GitHub, or you can comment / PM on any one of our external resource sites! You could even send an email to <dev@puppyize.me> with the subject "Suggestion" and we'll look into it! 
+_**Developer Note**_: If you feel the plugin is missing something or can benefit with something already existing acting differently, we want to hear about it! You can submit an [Issue](https://github.com/puppyize/WolfCommand/issues/new) here at GitHub, or you can comment / PM on any one of our external resource sites! You could even send an email to <mail@puppyize.me> with the subject "Suggestion" and we'll look into it! 
 
 **PLEASE REPORT ALL BUGS!**  

@@ -21,7 +21,7 @@ import java.util.logging.Level;
  * wolves.
  * </p>
  *
- * @author Pawpy Firelyte <dev@puppyize.me>
+ * @author Pawpy Firelyte <mail@puppyize.me>
  */
 public final class WolfCommand extends JavaPlugin {
 
@@ -30,13 +30,6 @@ public final class WolfCommand extends JavaPlugin {
 
 		getConfig().options().copyDefaults(true);
 		saveConfig();
-
-		try {
-			Metrics metrics = new Metrics(this);
-			metrics.start();
-		} catch (IOException e) {
-			getLogger().log(Level.WARNING, "Metrics failed to load");
-		}
 	}
 
 	public void onDisable() {
