@@ -1,9 +1,7 @@
 # Wolf Command - Serious Taming #
-## Latest: 2.10 - Spigot 1.12 ##
+## Latest: 2.10.0 - Spigot 1.12 ##
 
 **WolfCommand** allows players to command and control their tamed wolves better than basic Minecraft. It gives players the ability to attack monsters at range by swinging a stick at their target and full control over wolf state and various other essential attributes. It serves as the tool of choice for novice and experienced tamers, alike, who want more control over their pack than previously imagined. 
-
-**WolfCommand** now takes advantage of MCStats for plugin statistical purposes. Statistical information retrieved from this tool is exclusively used by the developer to understand how the plugin is implemented and used 'in the wild' (a.k.a. production). Easy opt-out instructions are defined below! :D  
 
 _Current feature versions of **WolfCommand** for earlier versions of Spigot can be requested, if needed._  
 
