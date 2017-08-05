@@ -11,6 +11,7 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.*;
 import java.util.logging.Level;
 
 
@@ -24,15 +25,52 @@ import java.util.logging.Level;
  */
 public final class WolfCommand extends JavaPlugin {
 
+	private Connection connection;
+	private String host, database, username, password;
+	private int port;
+
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new WolfListener(), this);
 
 		getConfig().options().copyDefaults(true);
 		saveConfig();
+
+		host = "localhost";
+		port = 3306;
+		database = "database";
+		username = "root";
+		password = "minecraft";
+
+		try {
+			openConnection();
+			Statement statement = connection.createStatement();
+
+			ResultSet result = statement.executeQuery("SHOW TABLES LIKE 'wc_player_wolves'");
+			if(!result.next()){
+				statement.executeUpdate("CREATE TABLE wc_player_wolves (`player_id` VARCHAR(100) NOT NULL,`wolf_id` VARCHAR(100) NOT NULL,`wolf_color` VARCHAR(20) NOT NULL,`wolf_state` VARCHAR(10) NOT NULL)");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void onDisable() {
 		HandlerList.unregisterAll();
+	}
+
+	private void openConnection() throws SQLException, ClassNotFoundException {
+		if (connection != null && !connection.isClosed()) {
+			return;
+		}
+
+		synchronized (this) {
+			if (connection != null && !connection.isClosed()) {
+				return;
+			}
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.username, this.password);
+		}
 	}
 
 	private String pluralize(int num) {
