@@ -355,10 +355,10 @@ class WolfPlayer {
 		}
 
 		double TOTAL = wps.size();
-		int ADULT = (AdultPup.containsKey("ADULT") ? AdultPup.get("ADULT") : 0);
-		int PUP = (AdultPup.containsKey("PUP") ? AdultPup.get("PUP") : 0);
-		int SITTING = (SitStand.containsKey("SITTING") ? SitStand.get("SITTING") : 0);
-		int STANDING = (SitStand.containsKey("STANDING") ? SitStand.get("STANDING") : 0);
+		int ADULT = (AdultPup.getOrDefault("ADULT", 0));
+		int PUP = (AdultPup.getOrDefault("PUP", 0));
+		int SITTING = (SitStand.getOrDefault("SITTING", 0));
+		int STANDING = (SitStand.getOrDefault("STANDING", 0));
 
 		sendTo.sendMessage(ChatColor.GREEN + "-- Adults / Pups --");
 		String AP = String.valueOf(ChatColor.GRAY) + "Adults: " + ChatColor.DARK_AQUA + ADULT + ChatColor.AQUA + " (" + Math.round((ADULT / TOTAL) * 100) + "%)" +
@@ -413,6 +413,7 @@ class WolfPlayer {
 	/**
 	 * Class to sort food quality for `wolf heal`
 	 */
+	@SuppressWarnings("NullableProblems")
 	class Food implements Comparable<Food> {
 		private final int quality;
 		private final ItemFood mItem;

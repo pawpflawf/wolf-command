@@ -11,7 +11,6 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
 import java.util.logging.Level;
 
 
@@ -370,10 +369,10 @@ public final class WolfCommand extends JavaPlugin {
 	}
 
 	private void invalidCollarColor(CommandSender sender) {
-		String legalColor = "";
+		StringBuilder legalColor = new StringBuilder();
 		for (DyeColor c : DyeColor.values())
-			legalColor += c.toString() + ", ";
-		legalColor = legalColor.substring(0, legalColor.length() - 2);
+			legalColor.append(c.toString()).append(", ");
+		legalColor = new StringBuilder(legalColor.substring(0, legalColor.length() - 2));
 
 		sender.sendMessage("Not a legal collar color.");
 		sender.sendMessage("Try: " + legalColor);
