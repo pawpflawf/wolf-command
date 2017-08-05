@@ -328,8 +328,8 @@ class WolfPlayer {
 		WolfPlayer wp = new WolfPlayer(fetchFrom);
 		List<Wolf> wps = wp.getWolves();
 
-		sendTo.sendMessage(ChatColor.BLUE + ".: Wolf Stats for " + ChatColor.RED + fetchFrom.getDisplayName() + ChatColor.RESET + ChatColor.BLUE + " :.");
-		sendTo.sendMessage(ChatColor.GRAY + "Total tamed wolves: " + ChatColor.DARK_AQUA + wps.size());
+		sendTo.sendMessage(ChatColor.BLUE + ".: Wolf Stats for " + ChatColor.RED + fetchFrom.getDisplayName() + ChatColor.RESET + ChatColor.BLUE + " :." + ChatColor.RESET);
+		sendTo.sendMessage(ChatColor.GRAY + "Total tamed wolves: " + ChatColor.DARK_AQUA + wps.size() + ChatColor.RESET);
 
 		if (wps.size() < 1) return;
 
@@ -360,19 +360,19 @@ class WolfPlayer {
 		int SITTING = (SitStand.getOrDefault("SITTING", 0));
 		int STANDING = (SitStand.getOrDefault("STANDING", 0));
 
-		sendTo.sendMessage(ChatColor.GREEN + "-- Adults / Pups --");
+		sendTo.sendMessage(ChatColor.GREEN + "-- Adults / Pups --" + ChatColor.RESET);
 		String AP = String.valueOf(ChatColor.GRAY) + "Adults: " + ChatColor.DARK_AQUA + ADULT + ChatColor.AQUA + " (" + Math.round((ADULT / TOTAL) * 100) + "%)" +
 				ChatColor.BLACK + " | " +
-				ChatColor.GRAY + "Pups: " + ChatColor.DARK_AQUA + PUP + ChatColor.AQUA + " (" + Math.round((PUP / TOTAL) * 100) + "%)";
+				ChatColor.GRAY + "Pups: " + ChatColor.DARK_AQUA + PUP + ChatColor.AQUA + " (" + Math.round((PUP / TOTAL) * 100) + "%)" + ChatColor.RESET;
 		sendTo.sendMessage(AP);
 
-		sendTo.sendMessage(ChatColor.GREEN + "-- Sitting / Standing --");
+		sendTo.sendMessage(ChatColor.GREEN + "-- Sitting / Standing --" + ChatColor.RESET);
 		String SS = String.valueOf(ChatColor.GRAY) + "Sitting: " + ChatColor.DARK_AQUA + SITTING + ChatColor.AQUA + " (" + Math.round((SITTING / TOTAL) * 100) + "%)" +
 				ChatColor.BLACK + " | " +
-				ChatColor.GRAY + "Standing: " + ChatColor.DARK_AQUA + STANDING + ChatColor.AQUA + " (" + Math.round((STANDING / TOTAL) * 100) + "%)";
+				ChatColor.GRAY + "Standing: " + ChatColor.DARK_AQUA + STANDING + ChatColor.AQUA + " (" + Math.round((STANDING / TOTAL) * 100) + "%)" + ChatColor.RESET;
 		sendTo.sendMessage(SS);
 
-		sendTo.sendMessage(ChatColor.GREEN + "-- Collar Color Array --");
+		sendTo.sendMessage(ChatColor.GREEN + "-- Collar Color Array --" + ChatColor.RESET);
 		StringBuilder COLOR = new StringBuilder();
 		for (Map.Entry<String, Integer> item : ColorArray.entrySet()) {
 			String color = item.getKey();

@@ -344,7 +344,7 @@ public final class WolfCommand extends JavaPlugin {
 									}
 									u = Bukkit.getPlayer(args[1]);
 									if (u == null) {
-										sender.sendMessage(ChatColor.RED + "Not a valid username");
+										sender.sendMessage(ChatColor.RED + "Not a valid username" + ChatColor.RESET);
 										break;
 									}
 								case 1: // Don't include break from 'Case 2' to allow flow into 'Case 1'
@@ -379,10 +379,10 @@ public final class WolfCommand extends JavaPlugin {
 	}
 
 	private void insufficientPermissions(CommandSender s) {
-		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action");
+		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action" + ChatColor.RESET);
 	}
 
 	private void commandDisabled(CommandSender s) {
-		s.sendMessage(ChatColor.RED + "This command is currently disabled");
+		s.sendMessage(ChatColor.RED + "This command is currently disabled" + ChatColor.RESET);
 	}
 }

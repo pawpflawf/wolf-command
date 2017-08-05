@@ -107,7 +107,7 @@ final class WolfListener implements Listener {
 
 			if (p.getWolves().size() >= MaxWolf && MaxWolf >= 0 && !s.isOp()) {
 				e.setCancelled(true);
-				s.sendMessage(ChatColor.RED + "You're not skilled enough to control this many wolves");
+				s.sendMessage(ChatColor.RED + "You're not skilled enough to control this many wolves" + ChatColor.RESET);
 			}
 		}
 	}
@@ -127,7 +127,7 @@ final class WolfListener implements Listener {
 
 
 	private void needPermission(CommandSender s) {
-		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action");
+		s.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do this action" + ChatColor.RESET);
 	}
 
 }
