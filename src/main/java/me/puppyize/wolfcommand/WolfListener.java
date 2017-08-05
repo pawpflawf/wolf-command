@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * wolves.
  * </p>
  *
- * @author Pawpy Firelyte <mail@puppyize.me>
+ * @author Pawpy Firelyte <wolfcommand@puppyize.me>
  */
 
 final class WolfListener implements Listener {

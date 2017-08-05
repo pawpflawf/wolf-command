@@ -20,7 +20,7 @@ import java.util.logging.Level;
  * wolves.
  * </p>
  *
- * @author Pawpy Firelyte <mail@puppyize.me>
+ * @author Pawpy Firelyte <wolfcommand@puppyize.me>
  */
 public final class WolfCommand extends JavaPlugin {
 

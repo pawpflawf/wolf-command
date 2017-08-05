@@ -35,6 +35,6 @@ _Current feature versions of **WolfCommand** for earlier versions of Spigot can 
 
 -----
 
-_**Developer Note**_: If you feel the plugin is missing something or can benefit with something already existing acting differently, we want to hear about it! You can submit an [Issue](https://github.com/puppyize/WolfCommand/issues/new) here at GitHub, or you can comment / PM on any one of our external resource sites! You could even send an email to <mail@puppyize.me> with the subject "Suggestion" and we'll look into it! 
+_**Developer Note**_: If you feel the plugin is missing something or can benefit with something already existing acting differently, we want to hear about it! You can submit an [Issue](https://github.com/puppyize/WolfCommand/issues/new) here at GitHub, or you can comment / PM on any one of our external resource sites! You could even send an email to <wolfcommand@puppyize.me> with the subject "Suggestion" and we'll look into it! 
 
 **PLEASE REPORT ALL BUGS!**  
