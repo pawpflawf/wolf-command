@@ -19,7 +19,7 @@ import java.util.*;
  * wolves.
  * </p>
  *
- * @author Pawpy Firelyte <wolfcommand@puppyize.me>
+ * @author Pawp Flawf <dev@stupid.dog>
  */
 @SuppressWarnings("UnusedReturnValue")
 class WolfPlayer {
